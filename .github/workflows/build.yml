@@ -40,4 +40,10 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      run: terraform plan -var-file=${{ inputs.env }}.tfvars
+      run: |
+        if [[ -n "${{ inputs.env }}" ]]; then
+          echo "env_name=${{ inputs.env }}"
+        else
+          echo "env_name=dev"
+        fi
+        terraform plan -var-file=$env_name.tfvars
