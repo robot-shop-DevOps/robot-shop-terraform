@@ -1,0 +1,9 @@
+name: Apply Terraform in the server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    
