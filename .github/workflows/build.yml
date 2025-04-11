@@ -42,8 +42,8 @@ jobs:
     - name: Terraform Plan
       run: |
         if [[ -n "${{ inputs.env }}" ]]; then
-          echo "env_name=${{ inputs.env }}" && export env_name=${{ inputs.env }}
+          echo "env_name=${{ inputs.env }}" && env_name=${{ inputs.env }}
         else
-          echo "env_name=dev" && env_name=dev
+          echo "env_name=dev" && export env_name=dev
         fi
         terraform plan -var-file=$env_name.tfvars
