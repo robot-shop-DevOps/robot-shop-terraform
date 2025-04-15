@@ -5,5 +5,5 @@ on:
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
+    runs-on: robot-shop-runner
     
