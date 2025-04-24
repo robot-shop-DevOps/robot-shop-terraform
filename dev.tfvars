@@ -70,6 +70,45 @@ sg = [
       }
     ]
     sg_vpc_id = "vpc-08f4c41057fcb0a50"
+  },
+  {
+    sg_name = "Kubernetes minikube security group"
+    sg_description = "Security group for Kubernetes minikube EC2 instances"
+    sg_ingress = [ 
+      {
+        from_port   = 22
+        to_port     = 22
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+      },
+      {
+        from_port   = 80
+        to_port     = 80
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+      },
+      {
+        from_port   = 443
+        to_port     = 443
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+      },
+      {
+        from_port   = 30000
+        to_port     = 32767
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+    ]
+    sg_egress = [ 
+      {
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+      } 
+    ]
+    sg_vpc_id = "vpc-08f4c41057fcb0a50"
   }
 ]
 
@@ -87,6 +126,20 @@ ec2_instances = [
     rsa_bits               = 4096
     private_key_location   = "./modules/ec2/Jenkins_server_key_pair.pem"
     private_key_permission = "0600"
+  },
+  {
+    ec2_ami                = "ami-0e35ddab05955cf57"
+    ec2_instance_type      = "t3a.medium"
+    ec2_subnet_id          = "subnet-0da50dfc626e142dc"
+    ec2_sg                 = ["sg-0d6304c79e3d8b013"]
+    ec2_public_ip          = true
+    ec2_name               = "Kubernetes server"
+    create_key_pair        = true
+    ec2_key_pair_name      = "Kubernetes_server_key_pair"
+    private_key_algo       = "RSA"
+    rsa_bits               = 4096
+    private_key_location   = "./modules/ec2/Kubernetes_server_key_pair.pem"
+    private_key_permission = "0400"
   }
 ]
 
