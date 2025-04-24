@@ -72,9 +72,9 @@ sg = [
     sg_vpc_id = "vpc-08f4c41057fcb0a50"
   },
   {
-    sg_name = "Kubernetes minikube security group"
+    sg_name        = "Kubernetes minikube security group"
     sg_description = "Security group for Kubernetes minikube EC2 instances"
-    sg_ingress = [ 
+    sg_ingress = [
       {
         from_port   = 22
         to_port     = 22
@@ -100,13 +100,13 @@ sg = [
         cidr_blocks = ["0.0.0.0/0"]
       }
     ]
-    sg_egress = [ 
+    sg_egress = [
       {
         from_port   = 0
         to_port     = 0
         protocol    = "-1"
         cidr_blocks = ["0.0.0.0/0"]
-      } 
+      }
     ]
     sg_vpc_id = "vpc-08f4c41057fcb0a50"
   }
