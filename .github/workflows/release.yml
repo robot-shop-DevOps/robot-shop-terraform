@@ -1,4 +1,4 @@
-name: Apply Terraform in the server
+name: Build Terraform workflow
 
 on:
   workflow_dispatch:

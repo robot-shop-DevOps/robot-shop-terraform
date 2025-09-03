@@ -1,20 +1,27 @@
-name: Build Terraform workflow
+name: Plan Terraform workflow
 
 on:
-  push:
-    branches-ignore: main
   workflow_dispatch:
     inputs:
-      env:
-        description: Environment to run terraform
+      cloud_provider:
+        description: Cloud Provider
+        required: true
+        type: choice
+        options:
+        - azure
+        - aws
+
+      environment:
+        description: Environment
+        required: false
         type: choice
         default: dev
         options:
         - dev
-        - pre
+        - prod
 
 env:
-    TF_VERSION: '1.11.4'
+    TF_VERSION: '1.9.8'
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -25,6 +32,13 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
+    - name: Set AWS Credentials
+      if: ${{ inputs.cloud_provider == 'aws' }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: echo "Configured AWS creds"
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
@@ -32,18 +46,17 @@ jobs:
 
     - name: Terraform Format
       run: terraform fmt -check -recursive
+      working-directory: ${{ inputs.cloud_provider }}
 
     - name: Terraform Init
       run: terraform init
+      working-directory: ${{ inputs.cloud_provider }}
 
     - name: Terraform Validate
       run: terraform validate
+      working-directory: ${{ inputs.cloud_provider }}
 
     - name: Terraform Plan
       run: |
-        if [[ -n "${{ inputs.env }}" ]]; then
-          echo "env_name=${{ inputs.env }}" && env_name=${{ inputs.env }}
-        else
-          echo "env_name=dev" && export env_name=dev
-        fi
-        terraform plan -var-file=$env_name.tfvars
+        terraform plan -var-file=${{ inputs.environment }}.tfvars
+      working-directory: ${{ inputs.cloud_provider }}
