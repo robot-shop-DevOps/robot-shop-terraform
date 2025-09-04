@@ -22,8 +22,6 @@ on:
 
 env:
     TF_VERSION: '1.9.8'
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   terraform:
@@ -38,6 +36,12 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: echo "Configured AWS creds"
+
+    - name: Set Azure Credentials
+      if: ${{ inputs.cloud_provider == 'azure' }}
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
