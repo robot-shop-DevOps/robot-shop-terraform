@@ -1,4 +1,4 @@
-name: Plan Terraform workflow
+name: Plan Terraform Workflow
 
 on:
   workflow_dispatch:
@@ -39,9 +39,12 @@ jobs:
 
     - name: Set Azure Credentials
       if: ${{ inputs.cloud_provider == 'azure' }}
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_TERRAFORM }}
+        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET_TERRAFORM }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      run: echo "Configured Azure creds"
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
