@@ -32,19 +32,19 @@ jobs:
 
     - name: Set AWS Credentials
       if: ${{ inputs.cloud_provider == 'aws' }}
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: echo "Configured AWS creds"
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV"
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV"
+        echo "Configured AWS creds"
 
     - name: Set Azure Credentials
-      if: ${{ inputs.cloud_provider == 'azure' }}
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_TERRAFORM }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET_TERRAFORM }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      run: echo "Configured Azure creds"
+      if: ${{ inputs.cloud_provider == 'azure' }}     
+      run: |
+        echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
+        echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
+        echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+        echo "Configured Azure creds"
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
