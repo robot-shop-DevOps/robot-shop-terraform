@@ -6,7 +6,7 @@ variable "vnet" {
         address_space  = list(string)
         subnet         = optional(list(object({
             name = string
-            address_prefix = list(string)
+            address_prefixes = list(string)
         })))
         tags           = optional(map)
     }))
