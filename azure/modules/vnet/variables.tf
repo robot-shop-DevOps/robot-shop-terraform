@@ -8,6 +8,6 @@ variable "vnet" {
             name = string
             address_prefixes = list(string)
         })))
-        tags           = optional(map)
+        tags           = optional(map(string))
     }))
 }
