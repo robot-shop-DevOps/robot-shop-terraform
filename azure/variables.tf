@@ -1,5 +1,5 @@
 variable "vnet" {
-    type = list(objects({
+    type = list(object({
         name           = string
         location       = string
         resource_group = string
