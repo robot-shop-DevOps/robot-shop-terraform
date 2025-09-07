@@ -6,3 +6,7 @@ variable "subnet" {
         address_prefixes  = list(string)
     }))
 }
+
+variable "vnet_names" {
+    type = map(string) 
+}

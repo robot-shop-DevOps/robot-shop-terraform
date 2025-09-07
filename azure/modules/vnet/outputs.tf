@@ -1,9 +1,14 @@
-output "vnet_id" {
-  description = "The ID of the Virtual Network"
-  value       = [for id in azurerm_virtual_network.robot_shop_vnet : id.id]
+output "vnet_names" {
+  description = "Map of VNet names keyed by vnet name for dependent modules"
+  value       = { for k, v in azurerm_virtual_network.robot_shop_vnet : k => v.name }
 }
 
-output "vnet_guid" {
-  description = "The GUID of the Virtual Network"
-  value       = [for guid in azurerm_virtual_network.robot_shop_vnet : guid.guid]
+output "vnet_ids" {
+  description = "Map of VNet IDs keyed by vnet id"
+  value       = { for k, v in azurerm_virtual_network.robot_shop_vnet : k => v.id }
+}
+
+output "vnet_guids" {
+  description = "Map of VNet GUIDs keyed by vnet guid"
+  value       = { for k, v in azurerm_virtual_network.robot_shop_vnet : k => v.guid }
 }
