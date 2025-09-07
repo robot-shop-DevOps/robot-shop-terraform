@@ -1,7 +1,7 @@
 vnet = [
     {
         name           = "robot-shop-vnet"
-        location       = "(Asia Pacific) Central India"
+        location       = "southindia"
         resource_group = "robot-shop"
         address_space  = ["10.0.0.0/16"]
         tags           = {
