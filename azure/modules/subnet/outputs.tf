@@ -1,4 +1,4 @@
-output "subnet_id" {
-    description = "The ID of the Subnet"
-    value       = [for id in azurerm_subnet.robot_shop_subnet : id.id]
+output "subnet_ids" {
+    description = "Map of Subnet IDs keyed by subnet name"
+    value       = { for k, v in azurerm_subnet.robot_shop_subnet : k => v.id }
 }
