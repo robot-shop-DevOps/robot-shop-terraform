@@ -11,6 +11,10 @@ on:
         required: true
         type: string
 
+      deploy:
+        required: true
+        type: boolean
+
   workflow_dispatch:
     inputs:
       cloud_provider:
@@ -29,6 +33,12 @@ on:
         options:
         - dev
         - prod
+
+      deploy:
+        description: "Apply Terraform changes?"
+        required: false
+        default: false
+        type: boolean
 
 env:
   TF_VERSION: '1.9.8'
@@ -85,3 +95,8 @@ jobs:
       with:
         name: tfplan
         path: ${{ inputs.cloud_provider }}/tfplan
+
+    - name: Terraform Apply
+      if: ${{ inputs.deploy == true && github.ref_name == 'main'}}
+      run: terraform apply -auto-approve tfplan
+      working-directory: ${{ inputs.cloud_provider }}

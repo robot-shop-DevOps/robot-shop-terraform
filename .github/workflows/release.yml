@@ -24,48 +24,10 @@ env:
   TF_VERSION: '1.9.8'
 
 jobs:
-  terraform_plan:
+  terraform_plan_and_apply:
     uses: ./.github/workflows/build.yml
     with:
       cloud_provider: ${{ inputs.cloud_provider }}
       environment: ${{ inputs.environment }}
+      deploy: true
     secrets: inherit
-
-  terraform_apply:
-    if: ${{ github.ref_name == 'main' }}
-    needs: terraform_plan
-    runs-on: robot-shop-runner
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
-
-    - name: Set AWS Credentials
-      if: ${{ inputs.cloud_provider == 'aws' }}
-      run: |
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-        echo "Configured AWS creds"
-
-    - name: Set Azure Credentials
-      if: ${{ inputs.cloud_provider == 'azure' }}     
-      run: |
-        echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
-        echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
-        echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-        echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-        echo "Configured Azure creds"
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: ${{ env.TF_VERSION }}
-
-    - name: Download Terraform Plan
-      uses: actions/download-artifact@v5
-      with:
-        name: tfplan
-        path: ${{ inputs.cloud_provider }}
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve tfplan
-      working-directory: ${{ inputs.cloud_provider }} 
