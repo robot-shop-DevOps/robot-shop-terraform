@@ -11,11 +11,6 @@ on:
         required: true
         type: string
 
-      update_lock_file:
-        required: false
-        type: boolean
-        default: false
-
   workflow_dispatch:
     inputs:
       cloud_provider:
@@ -34,11 +29,6 @@ on:
         options:
         - dev
         - prod
-
-      update_lock_file:
-        required: false
-        type: boolean
-        default: false
 
 env:
   TF_VERSION: '1.9.8'
@@ -72,19 +62,13 @@ jobs:
         terraform_version: ${{ env.TF_VERSION }}
 
     - name: Terraform Init
-      if: ${{ inputs.update_lock_file }}
       run: |
         terraform init
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .terraform.lock.hcl
-        git commit -m "Updated Terraform lock file"
-        git push
-      working-directory: ${{ inputs.cloud_provider }}
-
-    - name: Terraform Init without lock file update
-      if: ${{ !inputs.update_lock_file }}
-      run: terraform init -backend=false
+        git commit -m "Updated Terraform lock file" || echo "No changes to commit"
+        git push || echo "No changes to push"
       working-directory: ${{ inputs.cloud_provider }}
 
     - name: Terraform Validate
