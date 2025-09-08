@@ -37,7 +37,7 @@ jobs:
     runs-on: robot-shop-runner
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
 
     - name: Download Terraform Plan
       uses: actions/download-artifact@v3
