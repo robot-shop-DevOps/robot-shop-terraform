@@ -1,9 +1,49 @@
-name: Build Terraform Workflow
+name: Deploy Terraform Workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      cloud_provider:
+        description: Cloud Provider
+        required: true
+        type: choice
+        options:
+        - azure
+        - aws
+
+      environment:
+        description: Environment
+        required: false
+        type: choice
+        default: dev
+        options:
+        - dev
+        - prod
+
+env:
+  TF_VERSION: '1.9.8'
 
 jobs:
-  terraform:
+  terraform_plan:
+    uses: ./.github/workflows/build.yml
+    with:
+      cloud_provider: ${{ inputs.cloud_provider }}
+      environment: ${{ inputs.environment }}
+    secrets: inherit
+
+  terraform_apply:
+    if: ${{ github.ref_name == 'main' }}
+    needs: terraform_plan
     runs-on: robot-shop-runner
-    
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Download Terraform Plan
+      uses: actions/download-artifact@v3
+      with:
+        name: tfplan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan
+      working-directory: ${{ inputs.cloud_provider }} 
