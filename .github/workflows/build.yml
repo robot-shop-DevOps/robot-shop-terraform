@@ -44,7 +44,7 @@ env:
   TF_VERSION: '1.9.8'
 
 jobs:
-  terraform_plan:
+  terraform:
     runs-on: robot-shop-runner
     steps:
     - name: Checkout repo

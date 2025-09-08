@@ -24,7 +24,7 @@ env:
   TF_VERSION: '1.9.8'
 
 jobs:
-  terraform_plan_and_apply:
+  terraform:
     uses: ./.github/workflows/build.yml
     with:
       cloud_provider: ${{ inputs.cloud_provider }}
