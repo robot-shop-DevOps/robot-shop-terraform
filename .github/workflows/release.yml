@@ -29,6 +29,7 @@ jobs:
     with:
       cloud_provider: ${{ inputs.cloud_provider }}
       environment: ${{ inputs.environment }}
+      update_lock_file: false
     secrets: inherit
 
   terraform_apply:

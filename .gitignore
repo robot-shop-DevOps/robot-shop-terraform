@@ -1,3 +1,2 @@
 .terraform
 *.pem
-.terraform.lock.hcl
