@@ -43,6 +43,7 @@ jobs:
       uses: actions/download-artifact@v5
       with:
         name: tfplan
+        path: ${{ inputs.cloud_provider }}
 
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
