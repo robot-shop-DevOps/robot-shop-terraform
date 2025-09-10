@@ -1,34 +1,3 @@
-variable "vnet" {
-    type = list(object({
-        name           = string
-        location       = string
-        resource_group = string
-        address_space  = list(string)
-        tags           = optional(map(string))
-    }))
-}
-
-variable "subnet" {
-    type = list(object({
-        name              = string
-        resource_group    = string
-        vnet_name         = string
-        address_prefixes  = list(string)
-    }))
-}
-
-variable "network_interface" {
-    type = list(object({
-        name                                           = string   
-        location                                       = string
-        resource_group_name                            = string
-        ip_configuration_name                          = string
-        ip_configuration_subnet_name                   = string
-        ip_configuration_private_ip_address_allocation = string
-        tags                                           = map(string)
-    }))
-}
-
 variable "linux_virtual_machines" {
     type = list(object({
         name                             = string
@@ -47,6 +16,10 @@ variable "linux_virtual_machines" {
         source_image_reference_sku       = string
         source_image_reference_version   = string
     }))
+}
+
+variable "network_interfaces" {
+    type = map(string)
 }
 
 variable "key_vault" {
