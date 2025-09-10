@@ -25,7 +25,7 @@ env:
 
 jobs:
   terraform:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/plan_terraform.yml
     with:
       cloud_provider: ${{ inputs.cloud_provider }}
       environment: ${{ inputs.environment }}
