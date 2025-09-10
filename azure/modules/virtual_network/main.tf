@@ -1,3 +1,5 @@
+
+
 resource "azurerm_virtual_network" "robot_shop_vnet" {
     for_each            = { for vnet in var.vnet: vnet.name => vnet }
     name                = each.value.name
