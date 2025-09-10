@@ -1,6 +1,6 @@
 data "azurerm_key_vault" "robot_shop_vm" {
-    name                = var.key_vault_name.name
-    resource_group_name = var.key_vault_name.resource_group_name
+    name                = var.key_vault.name
+    resource_group_name = var.key_vault.resource_group_name
 }
 
 data "azurerm_key_vault_secret" "robot_shop_vm_password" {
