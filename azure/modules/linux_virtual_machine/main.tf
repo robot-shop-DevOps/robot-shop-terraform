@@ -20,10 +20,10 @@ resource "azurerm_linux_virtual_machine" "robot_shop_vm" {
     network_interface_ids = [ for nic_name in each.value.network_interface_names : var.network_interfaces[nic_name] ]
 
     os_disk {
-        name                 = each.value.os_disk.name
+        name                 = each.value.os_disk_name
         caching              = each.value.os_disk_caching
         storage_account_type = each.value.os_disk_storage_account_type      
-        disk_size_gb         = each.value.os_disk.disk_size_gb
+        disk_size_gb         = each.value.os_disk_disk_size_gb
     }
 
     source_image_reference {
