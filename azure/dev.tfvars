@@ -34,6 +34,10 @@ network_interface = [
         ip_configuration_name                          = "public-subnet-ip-config"
         ip_configuration_subnet_name                   = "public-subnet"
         ip_configuration_private_ip_address_allocation = "Dynamic"
+        tags                                           = {
+            environment = "dev"
+            project     = "robot-shop"
+        }
     },
     {
         name                                           = "robot-shop-private-subnet-nic"
@@ -42,6 +46,10 @@ network_interface = [
         ip_configuration_name                          = "private-subnet-ip-config"
         ip_configuration_subnet_name                   = "private-subnet"
         ip_configuration_private_ip_address_allocation = "Dynamic"
+        tags                                           = {
+            environment = "dev"
+            project     = "robot-shop"
+        }
     }
 ]
 
