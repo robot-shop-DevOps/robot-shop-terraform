@@ -21,3 +21,9 @@ module "linux_virtual_machine" {
     network_interfaces     = module.network_interface.network_interface_ids
     key_vault              = var.key_vault
 }
+
+module "network_security_group" {
+    source                 = "./modules/network_security_group"
+    network_security_group = var.network_security_group
+    subnets                = module.subnet.subnet_ids
+}
