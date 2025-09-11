@@ -32,6 +32,10 @@ network_security_group = [
         location            = "eastus"
         resource_group_name = "Robot-Shop-DevOps"
         subnet_name         = "public-subnet"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
         rules               = [
             {
                 name                       = "HTTP"
@@ -54,6 +58,17 @@ network_security_group = [
                 destination_port_range     = "443"
                 source_address_prefix      = "*"
                 destination_address_prefix = "10.0.1.0/24"
+            },
+            {
+                name                       = "SSH"
+                priority                   = 120
+                direction                  = "Inbound"
+                access                     = "Allow"
+                protocol                   = "TCP"
+                source_port_range          = "*"
+                destination_port_range     = "22"
+                source_address_prefix      = "*"
+                destination_address_prefix = "10.0.1.0/24"
             }
         ]
     },
@@ -62,6 +77,10 @@ network_security_group = [
         location            = "eastus"
         resource_group_name = "Robot-Shop-DevOps"
         subnet_name         = "private-subnet"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
         rules               = [
             {
                 name                       = "SSH"
