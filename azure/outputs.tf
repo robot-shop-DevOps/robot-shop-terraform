@@ -32,3 +32,8 @@ output "network_security_group_id" {
     description = "The ID of the Network Security Group"
     value       = module.network_security_group.network_security_group_ids
 }
+
+output "public_ip_id" {
+    description = "The Id of the Public IP"
+    value       = module.public_ip.public_ip_ids
+}

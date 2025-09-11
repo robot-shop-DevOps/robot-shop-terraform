@@ -9,6 +9,10 @@ resource "azurerm_network_interface" "robot_shop_nic" {
         name                          = each.value.ip_configuration_name
         subnet_id                     = var.subnets[each.value.ip_configuration_subnet_name]
         private_ip_address_allocation = each.value.ip_configuration_private_ip_address_allocation
+        public_ip_address_id          = try(
+            var.public_ips[each.value.ip_configuration_public_ip_address_name],
+            null
+        )
     }
 
     tags = each.value.tags

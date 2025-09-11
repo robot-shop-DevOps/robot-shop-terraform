@@ -12,6 +12,7 @@ module "subnet" {
 module "network_interface" {
     source            = "./modules/network_interface"
     subnets           = module.subnet.subnet_ids
+    public_ips        = module.public_ip.public_ip_ids
     network_interface = var.network_interface
 }
 
@@ -26,4 +27,9 @@ module "network_security_group" {
     source                 = "./modules/network_security_group"
     network_security_group = var.network_security_group
     subnets                = module.subnet.subnet_ids
+}
+
+module "public_ip" {
+    source    = "./modules/public_ip"
+    public_ip = var.public_ip
 }
