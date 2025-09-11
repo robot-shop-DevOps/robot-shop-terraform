@@ -19,6 +19,19 @@ variable "network_security_group" {
     }))
 }
 
+locals {
+    nsg_rules = flatten([
+        for nsg in var.network_security_group : [
+            for rule in nsg.rules : {
+                key                 = "${nsg.name}-${rule.name}"
+                rule                = rule
+                nsg_name            = nsg.name
+                resource_group_name = nsg.resource_group_name
+            }
+        ]
+    ])
+}
+
 variable "subnets" {
     type = map(string)
 }
