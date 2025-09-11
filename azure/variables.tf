@@ -25,6 +25,7 @@ variable "network_interface" {
         ip_configuration_name                          = string
         ip_configuration_subnet_name                   = string
         ip_configuration_private_ip_address_allocation = string
+        ip_configuration_public_ip_address_name        = optional(string)
         tags                                           = map(string)
     }))
 }
@@ -55,4 +56,35 @@ variable "key_vault" {
         resource_group_name = string
         secret_name = list(string)
    })
+}
+
+variable "network_security_group" {
+    type = list(object({
+        name                = string
+        location            = string
+        resource_group_name = string
+        tags                = map(string)
+        subnet_name         = string
+        rules               = list(object({
+            name                       = string
+            priority                   = number
+            direction                  = string
+            access                     = string
+            protocol                   = string
+            source_port_range          = string
+            destination_port_range     = string
+            source_address_prefix      = string
+            destination_address_prefix = string
+        }))
+    }))
+}
+
+variable "public_ip" {
+    type = list(object({
+        name                = string
+        location            = string
+        resource_group_name = string
+        allocation_method   = string
+        tags                = map(string)
+    }))
 }
