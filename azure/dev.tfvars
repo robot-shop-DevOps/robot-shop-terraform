@@ -1,8 +1,8 @@
 vnet = [
     {
         name           = "Robot-Shop-VNet"
-        location       = "eastus"
-        resource_group = "Robot-Shop-DevOps"
+        location       = "southindia"
+        resource_group = "Robot-Shop"
         address_space  = ["10.0.0.0/16"]
         tags           = {
             environment = "dev"
@@ -14,13 +14,13 @@ vnet = [
 subnet = [
     {
         name             = "public-subnet"
-        resource_group   = "Robot-Shop-DevOps"
+        resource_group   = "Robot-Shop"
         vnet_name        = "Robot-Shop-VNet"
         address_prefixes = ["10.0.1.0/24"]
     },
     {
         name             = "private-subnet"
-        resource_group   = "Robot-Shop-DevOps"
+        resource_group   = "Robot-Shop"
         vnet_name        = "Robot-Shop-VNet"
         address_prefixes = ["10.0.2.0/24"]
     }
@@ -29,8 +29,8 @@ subnet = [
 network_security_group = [
     {
         name                = "public-subnet-nsg"
-        location            = "eastus"
-        resource_group_name = "Robot-Shop-DevOps"
+        location            = "southindia"
+        resource_group_name = "Robot-Shop"
         subnet_name         = "public-subnet"
         tags                = {
             environment = "dev"
@@ -74,8 +74,8 @@ network_security_group = [
     },
     {
         name                = "private-subnet-nsg"
-        location            = "eastus"
-        resource_group_name = "Robot-Shop-DevOps"
+        location            = "southindia"
+        resource_group_name = "Robot-Shop"
         subnet_name         = "private-subnet"
         tags                = {
             environment = "dev"
@@ -99,9 +99,31 @@ network_security_group = [
 
 public_ip = [
     {
-        name                = "robot-shop-public-ip"
-        location            = "eastus"
-        resource_group_name = "Robot-Shop-DevOps"
+        name                = "public-subnet-nic-k8sworkernode1-public-ip"
+        location            = "southindia"
+        resource_group_name = "Robot-Shop"
+        allocation_method   = "Static"
+        sku                 = "Standard"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                = "public-subnet-nic-k8sworkernode2-public-ip"
+        location            = "southindia"
+        resource_group_name = "Robot-Shop"
+        allocation_method   = "Static"
+        sku                 = "Standard"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                = "public-subnet-nic-jumpbox-public-ip"
+        location            = "southindia"
+        resource_group_name = "Robot-Shop"
         allocation_method   = "Static"
         sku                 = "Standard"
         tags                = {
@@ -113,13 +135,39 @@ public_ip = [
 
 network_interface = [
     {
-        name                                           = "public-subnet-nic"
-        location                                       = "eastus"
-        resource_group_name                            = "Robot-Shop-DevOps"
+        name                                           = "public-subnet-nic-k8sworkernode1"
+        location                                       = "southindia"
+        resource_group_name                            = "Robot-Shop"
         ip_configuration_name                          = "external-traffic"
         ip_configuration_subnet_name                   = "public-subnet"
         ip_configuration_private_ip_address_allocation = "Dynamic"
-        ip_configuration_public_ip_address_name        = "robot-shop-public-ip"
+        ip_configuration_public_ip_address_name        = "public-subnet-nic-k8sworkernode1-public-ip"
+        tags                                           = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                                           = "public-subnet-nic-k8sworkernode2"
+        location                                       = "southindia"
+        resource_group_name                            = "Robot-Shop"
+        ip_configuration_name                          = "external-traffic"
+        ip_configuration_subnet_name                   = "public-subnet"
+        ip_configuration_private_ip_address_allocation = "Dynamic"
+        ip_configuration_public_ip_address_name        = "public-subnet-nic-k8sworkernode2-public-ip"
+        tags                                           = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                                           = "public-subnet-nic-jumpbox"
+        location                                       = "southindia"
+        resource_group_name                            = "Robot-Shop"
+        ip_configuration_name                          = "external-traffic"
+        ip_configuration_subnet_name                   = "public-subnet"
+        ip_configuration_private_ip_address_allocation = "Dynamic"
+        ip_configuration_public_ip_address_name        = "public-subnet-nic-jumpbox-public-ip"
         tags                                           = {
             environment = "dev"
             project     = "Robot-Shop"
@@ -127,8 +175,8 @@ network_interface = [
     },
     {
         name                                           = "private-subnet-nic"
-        location                                       = "eastus"
-        resource_group_name                            = "Robot-Shop-DevOps"
+        location                                       = "southindia"
+        resource_group_name                            = "Robot-Shop"
         ip_configuration_name                          = "internal-traffic"
         ip_configuration_subnet_name                   = "private-subnet"
         ip_configuration_private_ip_address_allocation = "Dynamic"
@@ -142,10 +190,10 @@ network_interface = [
 linux_virtual_machines = [
     {
         name                             = "Kubernetes-ControlPlane-WorkerNode1"
-        location                         = "eastus"
-        resource_group_name              = "Robot-Shop-DevOps"
-        size                             = "Standard_B2ps_v2"
-        network_interface_names          = [ "public-subnet-nic" ]
+        location                         = "southindia"
+        resource_group_name              = "Robot-Shop"
+        size                             = "Standard_B2ms"
+        network_interface_names          = [ "public-subnet-nic-k8sworkernode1" ]
         os_disk_caching                  = "ReadWrite"
         os_disk_storage_account_type     = "StandardSSD_LRS"
         os_disk_disk_size_gb             = 30
@@ -158,10 +206,10 @@ linux_virtual_machines = [
     }, 
     {
         name                             = "Kubernetes-WorkerNode2"
-        location                         = "eastus"
-        resource_group_name              = "Robot-Shop-DevOps"
-        size                             = "Standard_B2ps_v2"
-        network_interface_names          = [ "public-subnet-nic" ]
+        location                         = "southindia"
+        resource_group_name              = "Robot-Shop"
+        size                             = "Standard_B2ms"
+        network_interface_names          = [ "public-subnet-nic-k8sworkernode2" ]
         os_disk_caching                  = "ReadWrite"
         os_disk_storage_account_type     = "StandardSSD_LRS"
         os_disk_disk_size_gb             = 30
@@ -174,9 +222,9 @@ linux_virtual_machines = [
     },
     {
         name                             = "Kubernetes-WorkerNode3"
-        location                         = "eastus"
-        resource_group_name              = "Robot-Shop-DevOps"
-        size                             = "Standard_B2ps_v2"
+        location                         = "southindia"
+        resource_group_name              = "Robot-Shop"
+        size                             = "Standard_B2ms"
         network_interface_names          = [ "private-subnet-nic" ]
         os_disk_caching                  = "ReadWrite"
         os_disk_storage_account_type     = "StandardSSD_LRS"
@@ -190,10 +238,10 @@ linux_virtual_machines = [
     },
     {
         name                             = "Jump-Box"
-        location                         = "eastus"
-        resource_group_name              = "Robot-Shop-DevOps"
-        size                             = "Standard_B2ps_v2"
-        network_interface_names          = [ "public-subnet-nic" ]
+        location                         = "southindia"
+        resource_group_name              = "Robot-Shop"
+        size                             = "Standard_A1_v2"
+        network_interface_names          = [ "public-subnet-nic-jumpbox" ]
         os_disk_caching                  = "ReadWrite"
         os_disk_storage_account_type     = "StandardSSD_LRS"
         os_disk_disk_size_gb             = 10
@@ -208,6 +256,6 @@ linux_virtual_machines = [
 
 key_vault = {
     name                = "robot-shop-keyValut"
-    resource_group_name = "Robot-Shop-DevOps"
+    resource_group_name = "Robot-Shop"
     secret_name         = [ "Kubernetes-ControlPlane-WorkerNode1", "Kubernetes-WorkerNode2", "Kubernetes-WorkerNode3", "Jump-Box" ]
 }
