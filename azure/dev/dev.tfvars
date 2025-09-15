@@ -176,7 +176,8 @@ kubernetes_cluster = [
             network_plugin    = "azure"
             network_policy    = "azure"
             load_balancer_sku = "standard"
-            outbound_type     = "loadBalancer"
+            outbound_type     = "userAssignedNATGateway"
+            service_cidr      = "10.0.2.0/26"
         }
     }
 ]

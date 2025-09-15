@@ -23,6 +23,7 @@ variable "kubernetes_cluster" {
             network_policy    = string
             load_balancer_sku = string
             outbound_type     = string
+            service_cidr      = string
         })
     }))
 }
