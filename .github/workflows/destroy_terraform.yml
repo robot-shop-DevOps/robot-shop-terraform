@@ -67,6 +67,12 @@ jobs:
         git push || echo "No changes to push"
       working-directory: ${{ inputs.cloud_provider }}
 
+    - name: Terraform Plan
+      if: ${{ inputs.destroy_all_resources }}
+      run: |
+        terraform plan -destroy
+      working-directory: ${{ inputs.cloud_provider }}
+
     - name: Terraform Destroy
       if: ${{ inputs.destroy_all_resources }}
       run: |

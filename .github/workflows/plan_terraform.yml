@@ -79,24 +79,24 @@ jobs:
         git add .terraform.lock.hcl
         git commit -m "Updated Terraform lock file" || echo "No changes to commit"
         git push || echo "No changes to push"
-      working-directory: ${{ inputs.cloud_provider }}
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
 
     - name: Terraform Validate
       run: terraform validate
-      working-directory: ${{ inputs.cloud_provider }}
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
 
     - name: Terraform Plan
       run: |
-        terraform plan -var-file=${{ inputs.environment }}.tfvars -out=tfplan
-      working-directory: ${{ inputs.cloud_provider }}
+        terraform plan -var-file=${{ inputs.environment }}/${{ inputs.environment }}.tfvars -out=tfplan
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
 
     - name: Upload Terraform Plan
       uses: actions/upload-artifact@v4
       with:
         name: tfplan
-        path: ${{ inputs.cloud_provider }}/tfplan
+        path: ${{ inputs.cloud_provider }}//${{ inputs.environment }}/tfplan
 
     - name: Terraform Apply
       if: ${{ inputs.deploy == true && github.ref_name == 'main'}}
       run: terraform apply -auto-approve tfplan
-      working-directory: ${{ inputs.cloud_provider }}
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}

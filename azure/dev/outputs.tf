@@ -37,3 +37,13 @@ output "public_ip_id" {
     description = "The Id of the Public IP"
     value       = module.public_ip.public_ip_ids
 }
+
+output "kubernetes_cluster_id" {
+    description = "The ID of the Kubernetes Cluster"
+    value       = module.kubernetes_cluster.kubernetes_cluster_ids
+}
+
+output "kubernetes_nodes_id" {
+    description = "The ID of the Kubernetes Nodes"
+    value       = module.kubernetes_nodes.kubernetes_nodes_ids
+}
