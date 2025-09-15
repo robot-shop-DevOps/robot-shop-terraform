@@ -34,6 +34,12 @@ on:
         - dev
         - prod
 
+      update_lock_file:
+        description: "Update Terraform lock file?"
+        required: false
+        default: false
+        type: boolean
+
       deploy:
         description: "Apply Terraform changes?"
         required: false
@@ -72,8 +78,19 @@ jobs:
         terraform_version: ${{ env.TF_VERSION }}
 
     - name: Terraform Init
+      if : ${{ inputs.update_lock_file == false }}
       run: |
         terraform init
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
+
+    - name: Terraform Init with Lock File Update
+      if : ${{ inputs.update_lock_file == true }}
+      run: |
+        terraform init -upgrade
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
+
+    - name: Push lock file to repo
+      run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .terraform.lock.hcl
