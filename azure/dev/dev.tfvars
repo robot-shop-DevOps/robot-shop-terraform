@@ -163,7 +163,7 @@ kubernetes_cluster = [
         }
 
         default_node_pool   = {
-            name        = "system-nodepool"
+            name        = "systemnodepool"
             node_count  = 1
             vm_size     = "Standard_B2ms"
             subnet_name = "private-subnet"
@@ -183,7 +183,7 @@ kubernetes_cluster = [
 
 kubernetes_nodes = [
     {
-        name = "worker-nodepool"
+        name = "workernodepool"
         kubernetes_cluster_name = "robot-shop-aks"
         vm_size = "Standard_B2ms"
         node_count = 2
