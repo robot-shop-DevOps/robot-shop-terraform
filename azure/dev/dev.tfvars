@@ -163,13 +163,13 @@ kubernetes_cluster = [
         }
 
         default_node_pool   = {
-            name        = "robot-shop-aks-system-nodepool"
+            name        = "system-nodepool"
             node_count  = 1
             vm_size     = "Standard_B2ms"
             subnet_name = "private-subnet"
         }
 
-        dns_prefix              = "robot.shop.dev"
+        dns_prefix              = "robot-shop-dev"
         private_cluster_enabled = true
 
         network_profile = {
@@ -183,7 +183,7 @@ kubernetes_cluster = [
 
 kubernetes_nodes = [
     {
-        name = "robot-shop-aks-workernodepool"
+        name = "worker-nodepool"
         kubernetes_cluster_name = "robot-shop-aks"
         vm_size = "Standard_B2ms"
         node_count = 2
