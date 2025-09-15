@@ -1,7 +1,7 @@
 resource "azurerm_kubernetes_cluster" "robot_shop_kubernetes_cluster" {
     for_each = { for k8s in var.kubernetes_cluster : k8s.name => k8s }
 
-    name                    = each.value
+    name                    = each.value.name
     location                = each.value.location
     resource_group_name     = each.value.resource_group_name
     dns_prefix              = each.value.dns_prefix
