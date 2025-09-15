@@ -65,10 +65,16 @@ jobs:
         git add .terraform.lock.hcl
         git commit -m "Updated Terraform lock file" || echo "No changes to commit"
         git push || echo "No changes to push"
-      working-directory: ${{ inputs.cloud_provider }}
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
+
+    - name: Terraform Plan
+      if: ${{ inputs.destroy_all_resources }}
+      run: |
+        terraform plan -destroy
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
 
     - name: Terraform Destroy
       if: ${{ inputs.destroy_all_resources }}
       run: |
         terraform destroy -auto-approve -var-file="${{ inputs.environment }}.tfvars"
-      working-directory: ${{ inputs.cloud_provider }}
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
