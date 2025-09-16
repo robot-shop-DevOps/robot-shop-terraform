@@ -116,6 +116,7 @@ variable "kubernetes_cluster" {
             load_balancer_sku = string
             outbound_type     = string
             service_cidr      = string
+            dns_service_ip    = string
         })
     }))
 }

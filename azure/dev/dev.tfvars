@@ -177,7 +177,8 @@ kubernetes_cluster = [
             network_policy    = "azure"
             load_balancer_sku = "standard"
             outbound_type     = "loadBalancer"
-            service_cidr      = "10.0.2.0/26"
+            service_cidr      = "10.1.0.0/24"
+            dns_service_ip    = "10.1.0.10"
         }
     }
 ]
