@@ -23,5 +23,6 @@ resource "azurerm_kubernetes_cluster" "robot_shop_kubernetes_cluster" {
         network_policy    = each.value.network_profile.network_policy
         load_balancer_sku = each.value.network_profile.load_balancer_sku
         outbound_type     = each.value.network_profile.outbound_type
+        service_cidr      = each.value.network_profile.service_cidr
     }
 }
