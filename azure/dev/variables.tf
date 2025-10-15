@@ -22,10 +22,12 @@ variable "network_interface" {
         name                                           = string   
         location                                       = string
         resource_group_name                            = string
-        ip_configuration_name                          = string
-        ip_configuration_subnet_name                   = string
-        ip_configuration_private_ip_address_allocation = string
-        ip_configuration_public_ip_address_name        = optional(string)
+        ip_configuration    = object({
+            name                          = string
+            subnet_name                   = string
+            private_ip_address_allocation = string
+            public_ip_address_name        = optional(string)        
+        })
         tags                                           = map(string)
     }))
 }
@@ -64,7 +66,8 @@ variable "network_security_group" {
         location            = string
         resource_group_name = string
         tags                = map(string)
-        subnet_name         = string
+        subnet_name         = optional(string)
+        nic_name            = optional(string)
         rules               = list(object({
             name                       = string
             priority                   = number

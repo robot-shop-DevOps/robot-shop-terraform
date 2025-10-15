@@ -1,8 +1,8 @@
 vnet = [
     {
-        name           = "Robot-Shop-VNet"
+        name           = "Robot-Shop-Dev"
         location       = "southindia"
-        resource_group = "Robot-Shop"
+        resource_group = "robot-shop"
         address_space  = ["10.0.0.0/16"]
         tags           = {
             environment = "dev"
@@ -13,25 +13,121 @@ vnet = [
 
 subnet = [
     {
-        name             = "public-subnet"
-        resource_group   = "Robot-Shop"
-        vnet_name        = "Robot-Shop-VNet"
+        name             = "DevOps Tools Subnet"
+        resource_group   = "robot-shop"
+        vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.1.0/24"]
     },
     {
-        name             = "private-subnet"
-        resource_group   = "Robot-Shop"
-        vnet_name        = "Robot-Shop-VNet"
+        name             = "Web Server Subnet"
+        resource_group   = "robot-shop"
+        vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.2.0/24"]
+    },
+    {
+        name             = "Data Subnet"
+        resource_group   = "robot-shop"
+        vnet_name        = "Robot-Shop-Dev"
+        address_prefixes = ["10.0.3.0/24"]
+    },
+    {
+        name             = "AKS Subnet"
+        resource_group   = "robot-shop"
+        vnet_name        = "Robot-Shop-Dev"
+        address_prefixes = ["10.0.4.0/24"]
+    },
+]
+
+public_ip = [
+    {
+        name                = "GitHub-Actions-Server-Public-IP"
+        location            = "southindia"
+        resource_group_name = "robot-shop"
+        allocation_method   = "Dynamic"
+        sku                 = "Basic"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                = "Jump-Box-Public-IP"
+        location            = "southindia"
+        resource_group_name = "robot-shop"
+        allocation_method   = "Dynamic"
+        sku                 = "Basic"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                = "Outbound-Internet-Public-IP"
+        location            = "southindia"
+        resource_group_name = "robot-shop"
+        allocation_method   = "Static"
+        sku                 = "Standard"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    }
+]
+
+network_interface = [
+    {
+        name                                           = "GitHub-Actions-Server-NIC"
+        location                                       = "southindia"
+        resource_group_name                            = "robot-shop"
+        ip_configuration    = {
+            name                          = "GitHub-Actions-Server-IP-Config"
+            subnet_name                   = "DevOps Tools Subnet"
+            private_ip_address_allocation = "Dynamic"
+            public_ip_address_name        = "GitHub-Actions-Server-Public-IP"
+        }
+        tags                                           = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                                           = "Jump-Box-NIC"
+        location                                       = "southindia"
+        resource_group_name                            = "robot-shop"
+        ip_configuration    = {
+            name                          = "Jump-Box-IP-Config"
+            subnet_name                   = "DevOps Tools Subnet"
+            private_ip_address_allocation = "Dynamic"
+            public_ip_address_name        = "Jump-Box-Public-IP"
+        }
+        tags                                           = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    },
+    {
+        name                                           = "Outbound-Internet-NIC"
+        location                                       = "southindia"
+        resource_group_name                            = "robot-shop"
+        ip_configuration    = {
+            name                          = "Outbound-Internet-IP-Config"
+            subnet_name                   = "DevOps Tools Subnet"
+            private_ip_address_allocation = "Dynamic"
+            public_ip_address_name        = "Outbound-Internet-Public-IP"
+        }
+        tags                                           = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     }
 ]
 
 network_security_group = [
     {
-        name                = "public-subnet-nsg"
+        name                = "GitHub-Actions-Server-NSG"
         location            = "southindia"
-        resource_group_name = "Robot-Shop"
-        subnet_name         = "public-subnet"
+        resource_group_name = "robot-shop"
+        nic_name            = "GitHub-Actions-Server-NIC"
         tags                = {
             environment = "dev"
             project     = "Robot-Shop"
@@ -46,7 +142,7 @@ network_security_group = [
                 source_port_range          = "*"
                 destination_port_range     = "80"
                 source_address_prefix      = "*"
-                destination_address_prefix = "10.0.1.0/24"
+                destination_address_prefix = "*"
             },
             {
                 name                       = "HTTPS"
@@ -57,26 +153,26 @@ network_security_group = [
                 source_port_range          = "*"
                 destination_port_range     = "443"
                 source_address_prefix      = "*"
-                destination_address_prefix = "10.0.1.0/24"
+                destination_address_prefix = "*"
             },
             {
                 name                       = "SSH"
-                priority                   = 120
+                priority                   = 100
                 direction                  = "Inbound"
                 access                     = "Allow"
                 protocol                   = "Tcp"
                 source_port_range          = "*"
                 destination_port_range     = "22"
-                source_address_prefix      = "*"
-                destination_address_prefix = "10.0.1.0/24"
+                source_address_prefix      = "10.0.1.0/24"
+                destination_address_prefix = "*"
             }
         ]
     },
     {
-        name                = "private-subnet-nsg"
+        name                = "Jump-Box-NSG"
         location            = "southindia"
-        resource_group_name = "Robot-Shop"
-        subnet_name         = "private-subnet"
+        resource_group_name = "robot-shop"
+        nic_name            = "Jump-Box-NIC"
         tags                = {
             environment = "dev"
             project     = "Robot-Shop"
@@ -90,55 +186,91 @@ network_security_group = [
                 protocol                   = "Tcp"
                 source_port_range          = "*"
                 destination_port_range     = "22"
-                source_address_prefix      = "10.0.1.0/24"
-                destination_address_prefix = "10.0.2.0/24"
+                source_address_prefix      = "*"
+                destination_address_prefix = "*"
             }
         ]
-    }  
-]
-
-public_ip = [
+    },
     {
-        name                = "public-subnet-nic-jumpbox-public-ip"
+        name                = "Outbound-Internet-NSG"
         location            = "southindia"
-        resource_group_name = "Robot-Shop"
-        allocation_method   = "Static"
-        sku                 = "Standard"
+        resource_group_name = "robot-shop"
+        nic_name            = "Outbound-Internet-NIC"
         tags                = {
             environment = "dev"
             project     = "Robot-Shop"
         }
-    }
-]
-
-network_interface = [
-    {
-        name                                           = "public-subnet-nic-jumpbox"
-        location                                       = "southindia"
-        resource_group_name                            = "Robot-Shop"
-        ip_configuration_name                          = "external-traffic"
-        ip_configuration_subnet_name                   = "public-subnet"
-        ip_configuration_private_ip_address_allocation = "Dynamic"
-        ip_configuration_public_ip_address_name        = "public-subnet-nic-jumpbox-public-ip"
-        tags                                           = {
-            environment = "dev"
-            project     = "Robot-Shop"
-        }
+        rules               = [
+            {
+                name                       = "Private-Subent-to-Internet"
+                priority                   = 100
+                direction                  = "Inbound"
+                access                     = "Allow"
+                protocol                   = "Tcp"
+                source_port_range          = "*"
+                destination_port_range     = "*"
+                source_address_prefix      = "VirtualNetwork"
+                destination_address_prefix = "*"
+            },
+            {
+                name                       = "SSH"
+                priority                   = 110
+                direction                  = "Inbound"
+                access                     = "Allow"
+                protocol                   = "Tcp"
+                source_port_range          = "*"
+                destination_port_range     = "22"
+                source_address_prefix      = "10.0.1.0/24"
+                destination_address_prefix = "*"
+            }
+        ]
     }
 ]
 
 linux_virtual_machines = [
     {
+        name                             = "Github-Actions-Server"
+        location                         = "southindia"
+        resource_group_name              = "robot-shop"
+        size                             = "Standard_B2ms"
+        network_interface_names          = [ "GitHub-Actions-Server-NIC" ]
+        os_disk_caching                  = "ReadWrite"
+        os_disk_storage_account_type     = "StandardSSD_LRS"
+        os_disk_disk_size_gb             = 30
+        os_disk_name                     = "GitHub-Actions-Server-osdisk"
+        admin_username                   = "GitHubActions"
+        source_image_reference_publisher = "Canonical"
+        source_image_reference_offer     = "ubuntu-24_04-lts"
+        source_image_reference_sku       = "server"
+        source_image_reference_version   = "latest"
+    },
+    {
         name                             = "Jump-Box"
         location                         = "southindia"
-        resource_group_name              = "Robot-Shop"
-        size                             = "Standard_A1_v2"
-        network_interface_names          = [ "public-subnet-nic-jumpbox" ]
+        resource_group_name              = "robot-shop"
+        size                             = "Standard_B1ms"
+        network_interface_names          = [ "Jump-Box-NIC" ]
         os_disk_caching                  = "ReadWrite"
         os_disk_storage_account_type     = "StandardSSD_LRS"
         os_disk_disk_size_gb             = 30
         os_disk_name                     = "Jump-Box-osdisk"
-        admin_username                   = "kubernetes"
+        admin_username                   = "JumpBox"
+        source_image_reference_publisher = "Canonical"
+        source_image_reference_offer     = "ubuntu-24_04-lts"
+        source_image_reference_sku       = "server"
+        source_image_reference_version   = "latest"
+    },
+    {
+        name                             = "Outbound-Internet"
+        location                         = "southindia"
+        resource_group_name              = "robot-shop"
+        size                             = "Standard_B1ms"
+        network_interface_names          = [ "Outbound-Internet-NIC" ]
+        os_disk_caching                  = "ReadWrite"
+        os_disk_storage_account_type     = "StandardSSD_LRS"
+        os_disk_disk_size_gb             = 30
+        os_disk_name                     = "Outbound-Internet-osdisk"
+        admin_username                   = "OutboundInternet"
         source_image_reference_publisher = "Canonical"
         source_image_reference_offer     = "ubuntu-24_04-lts"
         source_image_reference_sku       = "server"
@@ -147,9 +279,9 @@ linux_virtual_machines = [
 ]
 
 key_vault = {
-    name                = "robot-shop-keyValut"
-    resource_group_name = "Robot-Shop"
-    secret_name         = [ "Kubernetes-ControlPlane-WorkerNode1", "Kubernetes-WorkerNode2", "Kubernetes-WorkerNode3", "Jump-Box" ]
+    name                = "VM-Passwords"
+    resource_group_name = "robot-shop"
+    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet"]
 }
 
 kubernetes_cluster = [

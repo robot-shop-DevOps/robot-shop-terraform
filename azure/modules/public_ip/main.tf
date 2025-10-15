@@ -1,4 +1,4 @@
-resource "azurerm_public_ip" "robot_shop_public_ip" {
+resource "azurerm_public_ip" "public_ip" {
   for_each = { for ip in var.public_ip : ip.name => ip }
 
   name                = each.value.name
