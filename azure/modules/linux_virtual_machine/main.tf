@@ -3,7 +3,7 @@ data "azurerm_key_vault" "key_vault" {
     resource_group_name = var.key_vault.resource_group_name
 }
 
-data "azurerm_key_vault_secret" "Key_vault_password" {
+data "azurerm_key_vault_secret" "key_vault_password" {
     for_each = { for vm in var.linux_virtual_machines : vm.name => vm }
 
     name         = each.key

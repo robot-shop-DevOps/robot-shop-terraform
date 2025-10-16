@@ -40,12 +40,12 @@ output "private_dns_zone_id" {
 
 output "mysql_flexible_server_id" {
     description = "The ID of the MySQL Server"
-    value       = module.mysql_flexible_server.mysql_flexible_server_id
+    value       = module.mysql_flexible_server.mysql_flexible_server_ids
 }
 
 output "mysql_flexible_server_fqdn" {
     description = "The FQDN of the MySQL Server"
-    value       = module.mysql_flexible_server.mysql_flexible_server_fqdn
+    value       = module.mysql_flexible_server.mysql_flexible_server_fqdns
 }
 
 output "kubernetes_cluster_id" {
@@ -58,12 +58,12 @@ output "kubernetes_nodes_id" {
     value       = module.kubernetes_nodes.kubernetes_nodes_ids
 }
 
-output "load_balancer_id" {
-    description = "The ID of Load Balancer"
-    value       = module.load_balancer.load_balancer_ids
-}
+# output "load_balancer_id" {
+#     description = "The ID of Load Balancer"
+#     value       = module.load_balancer.load_balancer_ids
+# }
 
-output "backend_address_pool_id" {
-    description = "The ID of Backend Address Pool"
-    value       = module.backend_address_pool.backend_address_pool_id
-}
+# output "backend_address_pool_id" {
+#     description = "The ID of Backend Address Pool"
+#     value       = module.backend_address_pool.backend_address_pool_id
+# }
