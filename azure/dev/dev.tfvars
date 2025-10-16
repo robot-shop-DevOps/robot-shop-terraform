@@ -417,7 +417,7 @@ linux_virtual_machines = [
 ]
 
 key_vault = {
-    name                = "VM-Passwords"
+    name                = "VMPasswords0205"
     resource_group_name = "robot-shop"
     secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "Web-Server", "robotshopmysqlserver0205"]
 }
