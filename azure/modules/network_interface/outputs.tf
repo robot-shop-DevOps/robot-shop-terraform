@@ -1,9 +1,9 @@
 output "network_interface_ids" {
     description = "Map of Network Interface IDs keyed by NIC name"
-    value       = { for k, v in azurerm_network_interface.nic : k => v.id }
+    value       = { for nic in azurerm_network_interface.nic : nic.name => nic.id }
 }
 
-output "network_interface_virtual_machine_ids" {
-    description = "Map of Network Interface Virtual Machine IDs keyed by NIC name"
-    value       = { for k, v in azurerm_network_interface.nic : k => v.virtual_machine_id }
+output "network_interface_private_ip_address" {
+    description = "Map of Network Interface Private IP Addresses keyed by NIC name"
+    value       = { for nic in azurerm_network_interface.nic : nic.name => nic.private_ip_address }
 }

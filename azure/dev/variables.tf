@@ -14,6 +14,15 @@ variable "subnet" {
         resource_group    = string
         vnet_name         = string
         address_prefixes  = list(string)
+        service_endpoints = optional(list(string))
+
+        delegation        = optional(object({
+            name               = string
+            service_delegation = object({
+                name    = string
+                actions = list(string)
+            })
+        }))
     }))
 }
 
@@ -29,6 +38,22 @@ variable "network_interface" {
             public_ip_address_name        = optional(string)        
         })
         tags                                           = map(string)
+    }))
+}
+
+variable "route_table" {
+    type = list(object({
+        name                = string
+        location            = string
+        resource_group_name = string
+        subnet              = string
+        tags                = map(string)
+        route               = optional(list(object({
+            name                   = string
+            address_prefix         = string
+            next_hop_type          = string
+            next_hop_in_ip_address = optional(string)
+        })))
     }))
 }
 
@@ -93,6 +118,28 @@ variable "public_ip" {
     }))
 }
 
+variable "private_dns_zone" {
+    type = list(object({
+        name                = string
+        resource_group_name = string
+        virtual_network     = string
+        tags                = map(string)
+    }))
+}
+
+variable "mysql_flexible_server" {
+    type = list(object({
+        name                  = string
+        resource_group_name   = string
+        location              = string
+        administrator_login   = string
+        delegated_subnet_name = string
+        private_dns_zone_name = string
+        sku_name              = string
+        tags                  = map(string)
+    }))
+}
+
 variable "kubernetes_cluster" {
     type = list(object({
         name                = string
@@ -131,5 +178,27 @@ variable "kubernetes_nodes" {
         vm_size                 = string 
         node_count              = number
         subnet_name             = string
+    }))
+}
+
+variable "load_balancer" {
+    type = list(object({
+        name                = string
+        resource_group_name = string
+        location            = string
+        sku                 = string
+        tags                = map(string)
+
+        frontend_ip_configuration = object({
+            name                 = string
+            public_ip_address_id = string
+        })
+    }))
+}
+
+variable "backend_address_pool" {
+    type = list(object({
+        name         = string
+        loadbalancer = string
     }))
 }
