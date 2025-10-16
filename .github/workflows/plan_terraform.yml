@@ -66,10 +66,21 @@ jobs:
     - name: Set Azure Credentials
       if: ${{ inputs.cloud_provider == 'azure' }}     
       run: |
-        echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
-        echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
+        if [[${{ inputs.environment }} == 'dev' ]]; then  
+          echo "Using dev environment"
+          echo "ARM_CLIENT_ID=${{ secrets.ROBOT_SHOP_DEV_AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
+          echo "ARM_CLIENT_SECRET=${{ secrets.ROBOT_SHOP_DEV_AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
+          echo "ARM_SUBSCRIPTION_ID=${{ secrets.ROBOT_SHOP_DEV_AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+
+        elif [[${{ inputs.environment }} == 'prod' ]]; then
+          echo "Using prod environment"
+          echo "ARM_CLIENT_ID=${{ secrets.ROBOT_SHOP_PROD_AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
+          echo "ARM_CLIENT_SECRET=${{ secrets.ROBOT_SHOP_PROD_AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
+          echo "ARM_SUBSCRIPTION_ID=${{ secrets.ROBOT_SHOP_PROD_AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+          
+        fi
+
         echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-        echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
         echo "Configured Azure creds"
 
     - name: Setup Terraform
