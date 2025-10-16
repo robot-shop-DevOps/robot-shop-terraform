@@ -40,6 +40,11 @@ on:
         default: false
         type: boolean
 
+      force_unlock:
+        description: "Force unlock state?"
+        required: false
+        type: string
+
       deploy:
         description: "Apply Terraform changes?"
         required: false
@@ -111,6 +116,12 @@ jobs:
 
     - name: Terraform Validate
       run: terraform validate
+      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
+
+    - name: Terraform Force Unlock
+      if: ${{ inputs.force_unlock != '' }}
+      run: |
+        terraform force-unlock -force ${{ inputs.force_unlock }}
       working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
 
     - name: Terraform Plan
