@@ -13,25 +13,25 @@ vnet = [
 
 subnet = [
     {
-        name             = "DevOps Tools Subnet"
+        name             = "DevOps-Tools-Subnet"
         resource_group   = "robot-shop"
         vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.1.0/24"]
     },
     {
-        name             = "Web Server Subnet"
+        name             = "Web-Server-Subnet"
         resource_group   = "robot-shop"
         vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.2.0/24"]
     },
     {
-        name             = "AKS Subnet"
+        name             = "AKS-Subnet"
         resource_group   = "robot-shop"
         vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.4.0/24"]
     },
     {
-        name             = "Data Subnet"
+        name             = "Data-Subnet"
         resource_group   = "robot-shop"
         vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.3.0/24"]
@@ -48,29 +48,7 @@ subnet = [
 
 public_ip = [
     {
-        name                = "GitHub-Actions-Server-Public-IP"
-        location            = "southindia"
-        resource_group_name = "robot-shop"
-        allocation_method   = "Dynamic"
-        sku                 = "Basic"
-        tags                = {
-            environment = "dev"
-            project     = "Robot-Shop"
-        }
-    },
-    {
         name                = "Jump-Box-Public-IP"
-        location            = "southindia"
-        resource_group_name = "robot-shop"
-        allocation_method   = "Dynamic"
-        sku                 = "Basic"
-        tags                = {
-            environment = "dev"
-            project     = "Robot-Shop"
-        }
-    },
-    {
-        name                = "Outbound-Internet-Public-IP"
         location            = "southindia"
         resource_group_name = "robot-shop"
         allocation_method   = "Static"
@@ -81,7 +59,7 @@ public_ip = [
         }
     },
     {
-        name                = "Web-Server-Public-IP"
+        name                = "Outbound-Internet-Public-IP"
         location            = "southindia"
         resource_group_name = "robot-shop"
         allocation_method   = "Static"
@@ -100,9 +78,8 @@ network_interface = [
         resource_group_name                            = "robot-shop"
         ip_configuration    = {
             name                          = "GitHub-Actions-Server-IP-Config"
-            subnet_name                   = "DevOps Tools Subnet"
+            subnet_name                   = "DevOps-Tools-Subnet"
             private_ip_address_allocation = "Dynamic"
-            public_ip_address_name        = "GitHub-Actions-Server-Public-IP"
         }
         tags                                           = {
             environment = "dev"
@@ -115,7 +92,7 @@ network_interface = [
         resource_group_name                            = "robot-shop"
         ip_configuration    = {
             name                          = "Jump-Box-IP-Config"
-            subnet_name                   = "DevOps Tools Subnet"
+            subnet_name                   = "DevOps-Tools-Subnet"
             private_ip_address_allocation = "Dynamic"
             public_ip_address_name        = "Jump-Box-Public-IP"
         }
@@ -130,7 +107,7 @@ network_interface = [
         resource_group_name                            = "robot-shop"
         ip_configuration    = {
             name                          = "Outbound-Internet-IP-Config"
-            subnet_name                   = "DevOps Tools Subnet"
+            subnet_name                   = "DevOps-Tools-Subnet"
             private_ip_address_allocation = "Static"
             public_ip_address_name        = "Outbound-Internet-Public-IP"
         }
@@ -145,9 +122,8 @@ network_interface = [
         resource_group_name                            = "robot-shop"
         ip_configuration    = {
             name                          = "Web-Server-IP-Config"
-            subnet_name                   = "Web Server Subnet"
+            subnet_name                   = "Web-Server-Subnet"
             private_ip_address_allocation = "Static"
-            public_ip_address_name        = "Web-Server-Public-IP"
         }
         tags                                           = {
             environment = "dev"
@@ -191,7 +167,7 @@ network_security_group = [
             },
             {
                 name                       = "SSH"
-                priority                   = 100
+                priority                   = 120
                 direction                  = "Inbound"
                 access                     = "Allow"
                 protocol                   = "Tcp"
@@ -311,7 +287,7 @@ route_table = [
         name                = "Web-Server-Subnet-Route-Table"
         location            = "southindia"
         resource_group_name = "robot-shop"
-        subnet              = "Web Server Subnet"
+        subnet              = "Web-Server-Subnet"
 
         tags = {
             environment = "dev"
@@ -331,7 +307,7 @@ route_table = [
         name                = "AKS-Subnet-Route-Table"
         location            = "southindia"
         resource_group_name = "robot-shop"
-        subnet              = "AKS Subnet"
+        subnet              = "AKS-Subnet"
 
         tags = {
             environment = "dev"
@@ -440,7 +416,7 @@ mysql_flexible_server = [
         resource_group_name   = "robot-shop"
         location              = "southindia"
         administrator_login   = "mysql"
-        delegated_subnet_name = "Data Subnet"
+        delegated_subnet_name = "Data-Subnet"
         private_dns_zone_name = "privatelink.mysql.database.azure.com"
         sku_name              = "B_Standard_B1ms"
 
