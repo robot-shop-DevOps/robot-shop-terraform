@@ -1,16 +1,16 @@
-data "azurerm_key_vault" "robot_shop_vm" {
+data "azurerm_key_vault" "key_vault" {
     name                = var.key_vault.name
     resource_group_name = var.key_vault.resource_group_name
 }
 
-data "azurerm_key_vault_secret" "robot_shop_vm_password" {
+data "azurerm_key_vault_secret" "key_vault_password" {
     for_each = { for vm in var.linux_virtual_machines : vm.name => vm }
 
     name         = each.key
-    key_vault_id = data.azurerm_key_vault.robot_shop_vm.id
+    key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
-resource "azurerm_linux_virtual_machine" "robot_shop_vm" {
+resource "azurerm_linux_virtual_machine" "vm" {
     for_each = { for vm in var.linux_virtual_machines : vm.name => vm }
     
     name                  = each.value.name
@@ -34,6 +34,6 @@ resource "azurerm_linux_virtual_machine" "robot_shop_vm" {
     }
 
     admin_username                  = each.value.admin_username
-    admin_password                  = data.azurerm_key_vault_secret.robot_shop_vm_password[each.key].value
+    admin_password                  = data.azurerm_key_vault_secret.key_vault_password[each.key].value
     disable_password_authentication = false
 }

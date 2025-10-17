@@ -1,4 +1,4 @@
-resource "azurerm_network_interface" "robot_shop_nic" {
+resource "azurerm_network_interface" "nic" {
     for_each = { for nic in var.network_interface : nic.name => nic }
 
     name                = each.value.name
@@ -6,12 +6,11 @@ resource "azurerm_network_interface" "robot_shop_nic" {
     resource_group_name = each.value.resource_group_name
 
     ip_configuration {
-        name                          = each.value.ip_configuration_name
-        subnet_id                     = var.subnets[each.value.ip_configuration_subnet_name]
-        private_ip_address_allocation = each.value.ip_configuration_private_ip_address_allocation
+        name                          = each.value.ip_configuration.name
+        subnet_id                     = var.subnets[each.value.ip_configuration.subnet_name]
+        private_ip_address_allocation = each.value.ip_configuration.private_ip_address_allocation
         public_ip_address_id          = try(
-            var.public_ips[each.value.ip_configuration_public_ip_address_name],
-            null
+            var.public_ips[each.value.ip_configuration.public_ip_address_name], null
         )
     }
 

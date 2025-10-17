@@ -4,7 +4,8 @@ variable "network_security_group" {
         location            = string
         resource_group_name = string
         tags                = map(string)
-        subnet_name         = string
+        subnet_name         = optional(string)
+        nic_name            = optional(string)
         rules               = list(object({
             name                       = string
             priority                   = number
@@ -33,5 +34,9 @@ locals {
 }
 
 variable "subnets" {
+    type = map(string)
+}
+
+variable "network_interfaces" {
     type = map(string)
 }
