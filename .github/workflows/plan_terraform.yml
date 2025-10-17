@@ -34,12 +34,6 @@ on:
         - dev
         - prod
 
-      update_lock_file:
-        description: "Update Terraform lock file?"
-        required: false
-        default: false
-        type: boolean
-
       force_unlock:
         description: "Force unlock state?"
         required: false
@@ -47,6 +41,12 @@ on:
 
       deploy:
         description: "Apply Terraform changes?"
+        required: false
+        default: false
+        type: boolean
+
+      update_lock_file:
+        description: "Update Terraform lock file?"
         required: false
         default: false
         type: boolean
