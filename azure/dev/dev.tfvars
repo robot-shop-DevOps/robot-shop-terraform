@@ -109,6 +109,7 @@ network_interface = [
             name                          = "Outbound-Internet-IP-Config"
             subnet_name                   = "DevOps-Tools-Subnet"
             private_ip_address_allocation = "Static"
+            private_ip_address            = "10.0.1.10"
             public_ip_address_name        = "Outbound-Internet-Public-IP"
         }
         tags                                           = {
@@ -124,6 +125,7 @@ network_interface = [
             name                          = "Web-Server-IP-Config"
             subnet_name                   = "Web-Server-Subnet"
             private_ip_address_allocation = "Static"
+            private_ip_address            = "10.0.2.10"
         }
         tags                                           = {
             environment = "dev"
