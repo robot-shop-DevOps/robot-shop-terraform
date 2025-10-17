@@ -419,7 +419,7 @@ linux_virtual_machines = [
 key_vault = {
     name                = "VMPasswords0205"
     resource_group_name = "robot-shop"
-    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "robotshopmysqlserver0205"]
+    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "Web-Server", "robotshopmysqlserver0205"]
 }
 
 private_dns_zone = [
