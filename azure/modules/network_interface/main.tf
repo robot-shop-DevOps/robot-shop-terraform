@@ -9,6 +9,9 @@ resource "azurerm_network_interface" "nic" {
         name                          = each.value.ip_configuration.name
         subnet_id                     = var.subnets[each.value.ip_configuration.subnet_name]
         private_ip_address_allocation = each.value.ip_configuration.private_ip_address_allocation
+        private_ip_address            = try(
+            each.value.ip_configuration.private_ip_address, null
+        )
         public_ip_address_id          = try(
             var.public_ips[each.value.ip_configuration.public_ip_address_name], null
         )

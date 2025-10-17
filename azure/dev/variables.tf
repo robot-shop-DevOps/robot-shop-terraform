@@ -35,6 +35,7 @@ variable "network_interface" {
             name                          = string
             subnet_name                   = string
             private_ip_address_allocation = string
+            private_ip_address            = optional(string)
             public_ip_address_name        = optional(string)        
         })
         tags                                           = map(string)
