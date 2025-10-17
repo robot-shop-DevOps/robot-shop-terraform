@@ -419,7 +419,7 @@ linux_virtual_machines = [
 key_vault = {
     name                = "VMPasswords0205"
     resource_group_name = "robot-shop"
-    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "Web-Server", "robotshopmysqlserver0205"]
+    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "robotshopmysqlserver0205"]
 }
 
 private_dns_zone = [
@@ -448,46 +448,5 @@ mysql_flexible_server = [
             environment = "dev"
             project     = "Robot-Shop"
         }
-    }
-]
-
-kubernetes_cluster = [
-    {
-        name                = "robot-shop-aks"
-        resource_group_name = "Robot-Shop"
-        location            = "southindia"
-
-        identity            = {
-            type = "SystemAssigned"
-        }
-
-        default_node_pool   = {
-            name        = "systemnodes"
-            node_count  = 1
-            vm_size     = "Standard_B2ms"
-            subnet_name = "private-subnet"
-        }
-
-        dns_prefix              = "robot-shop-dev"
-        private_cluster_enabled = true
-
-        network_profile = {
-            network_plugin    = "azure"
-            network_policy    = "azure"
-            load_balancer_sku = "standard"
-            outbound_type     = "loadBalancer"
-            service_cidr      = "10.1.0.0/24"
-            dns_service_ip    = "10.1.0.10"
-        }
-    }
-]
-
-kubernetes_nodes = [
-    {
-        name = "workernodes"
-        kubernetes_cluster_name = "robot-shop-aks"
-        vm_size = "Standard_B2ms"
-        node_count = 2
-        subnet_name = "private-subnet"
     }
 ]
