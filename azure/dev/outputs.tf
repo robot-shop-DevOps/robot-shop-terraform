@@ -48,6 +48,16 @@ output "mysql_flexible_server_fqdn" {
     value       = module.mysql_flexible_server.mysql_flexible_server_fqdns
 }
 
+output "kubernetes_cluster_id" {
+    description = "The ID of the Kubernetes Cluster"
+    value       = module.kubernetes_cluster.kubernetes_cluster_ids
+}
+
+output "kubernetes_node_pool_id" {
+    description = "The ID of the Kubernetes Node Pool"
+    value       = module.kubernetes_node_pool.kubernetes_node_pool_ids
+}
+
 # output "load_balancer_id" {
 #     description = "The ID of Load Balancer"
 #     value       = module.load_balancer.load_balancer_ids

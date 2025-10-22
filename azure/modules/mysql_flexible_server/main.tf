@@ -11,7 +11,7 @@ data "azurerm_key_vault_secret" "key_vault_password" {
 }
 
 resource "azurerm_mysql_flexible_server" "mysql_server" {
-    for_each = { for mysql in var.mysql_flexible_server : mysql.name => mysql }
+    for_each = length(var.mysql_flexible_server) > 0 ? { for mysql in var.mysql_flexible_server : mysql.name => mysql } : {}
 
     name                   = each.value.name
     resource_group_name    = each.value.resource_group_name

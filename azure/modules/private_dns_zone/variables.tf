@@ -5,6 +5,7 @@ variable "private_dns_zone" {
         virtual_network     = string
         tags                = map(string)
     }))
+    default = []
 }
 
 variable "virtual_networks" {
