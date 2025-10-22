@@ -69,6 +69,11 @@ module "kubernetes_node_pool" {
     subnets               = module.subnet.subnet_ids
 }
 
+module "container_registry" {
+    source              = "../modules/container_registry"
+    container_registry  = var.container_registry
+}
+
 # module "load_balancer" {
 #     source        = "../modules/load_balancer/load_balancer"
 #     load_balancer = var.load_balancer
