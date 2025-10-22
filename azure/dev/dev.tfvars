@@ -410,7 +410,7 @@ kubernetes_cluster = [
             network_plugin    = "azure"
             network_policy    = "azure"
             load_balancer_sku = "standard"
-            outbound_type     = "UserDefinedRouting"
+            outbound_type     = "userDefinedRouting"
             service_cidr      = "10.1.0.0/24"
             dns_service_ip    = "10.1.0.10"
         }
