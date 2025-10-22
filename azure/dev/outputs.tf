@@ -58,6 +58,11 @@ output "kubernetes_node_pool_id" {
     value       = module.kubernetes_node_pool.kubernetes_node_pool_ids
 }
 
+output "container_registry_id" {
+    description = "The ID of the Container Registry"
+    value       = module.container_registry.container_registry_ids
+}
+
 # output "load_balancer_id" {
 #     description = "The ID of Load Balancer"
 #     value       = module.load_balancer.load_balancer_ids
