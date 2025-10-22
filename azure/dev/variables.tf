@@ -126,6 +126,7 @@ variable "private_dns_zone" {
         virtual_network     = string
         tags                = map(string)
     }))
+    default = []
 }
 
 variable "mysql_flexible_server" {

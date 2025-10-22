@@ -1,5 +1,5 @@
 resource "azurerm_private_dns_zone" "private_dns_zone" {
-    for_each = { for dns in var.private_dns_zone : dns.name => dns }
+    for_each = length(var.private_dns_zone) > 0 ? { for dns in var.private_dns_zone : dns.name => dns } : {}
 
     name                = each.value.name
     resource_group_name = each.value.resource_group_name
