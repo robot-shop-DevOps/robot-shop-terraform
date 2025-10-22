@@ -414,5 +414,28 @@ kubernetes_cluster = [
             service_cidr      = "10.1.0.0/24"
             dns_service_ip    = "10.1.0.10"
         }
+
+        tags                  = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    }
+]
+
+kubernetes_node_pool = [
+    {
+        name                  = "usernodepool"
+        kubernetes_cluster    = "Robot-Shop-Dev-AKS"
+        vm_size               = "Standard_B2ms"
+        vnet_subnet           = "AKS-Subnet"
+        node_labels           = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+
+        tags                  = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     }
 ]

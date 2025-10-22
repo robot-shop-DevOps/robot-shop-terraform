@@ -170,6 +170,8 @@ variable "kubernetes_cluster" {
             service_cidr      = string
             dns_service_ip    = string
         })
+
+        tags                  = map(string)
     }))
 }
 
