@@ -139,6 +139,7 @@ variable "mysql_flexible_server" {
         sku_name              = string
         tags                  = map(string)
     }))
+    default = []
 }
 
 variable "kubernetes_cluster" {
