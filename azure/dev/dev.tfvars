@@ -29,20 +29,6 @@ subnet = [
         resource_group   = "robot-shop"
         vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.4.0/24"]
-    },
-    {
-        name             = "Data-Subnet"
-        resource_group   = "robot-shop"
-        vnet_name        = "Robot-Shop-Dev"
-        address_prefixes = ["10.0.3.0/24"]
-        
-        delegation = {
-            name               = "mysql-flexible-server-delegation"
-            service_delegation = {
-                name    = "Microsoft.DBforMySQL/flexibleServers"
-                actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
-            }
-        }
     }
 ]
 
@@ -218,7 +204,7 @@ network_security_group = [
                 priority                   = 100
                 direction                  = "Inbound"
                 access                     = "Allow"
-                protocol                   = "Tcp"
+                protocol                   = "*"
                 source_port_range          = "*"
                 destination_port_range     = "*"
                 source_address_prefix      = "VirtualNetwork"
@@ -397,34 +383,36 @@ linux_virtual_machines = [
 key_vault = {
     name                = "VMPasswords0205"
     resource_group_name = "robot-shop"
-    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "Web-Server", "robotshopmysqlserver0205"]
+    secret_name         = ["Github-Actions-Server", "Jump-Box", "Outbound-Internet", "Web-Server"]
 }
 
-private_dns_zone = [
+kubernetes_cluster = [
     {
-        name                = "privatelink.mysql.database.azure.com"
-        resource_group_name = "robot-shop"
-        virtual_network     = "Robot-Shop-Dev"
-        tags = {
-            environment = "dev"
-            project     = "Robot-Shop"
+        name                       = "Robot-Shop-Dev-AKS"
+        location                   = "southindia"
+        resource_group_name        = "robot-shop"
+
+        identity                   = {
+            type = "SystemAssigned"
         }
-    }
-]
 
-mysql_flexible_server = [
-    {
-        name                  = "robotshopmysqlserver0205"
-        resource_group_name   = "robot-shop"
-        location              = "southindia"
-        administrator_login   = "mysql"
-        delegated_subnet_name = "Data-Subnet"
-        private_dns_zone_name = "privatelink.mysql.database.azure.com"
-        sku_name              = "B_Standard_B1ms"
+        default_node_pool          = {
+            name        = "systemnode"
+            node_count  = 1
+            vm_size     = "Standard_B2ms"
+            subnet_name = "AKS-Subnet"
+        }
 
-        tags = {
-            environment = "dev"
-            project     = "Robot-Shop"
+        dns_prefix                 = "robotshopdevaks"
+        private_cluster_enabled    = true
+
+        network_profile            = {
+            network_plugin    = "azure"
+            network_policy    = "azure"
+            load_balancer_sku = "standard"
+            outbound_type     = "UserDefinedRouting"
+            service_cidr      = "10.1.0.0/24"
+            dns_service_ip    = "10.1.0.10"
         }
     }
 ]

@@ -141,6 +141,50 @@ variable "mysql_flexible_server" {
     }))
 }
 
+variable "kubernetes_cluster" {
+    type = list(object({
+        name                       = string
+        location                   = string
+        resource_group_name        = string
+        
+        identity                   = object({
+            type = string
+        })
+
+        default_node_pool          = object({
+            name        = string
+            node_count  = number
+            vm_size     = string
+            subnet_name = string
+        })
+
+        dns_prefix                 = optional(string)
+        dns_prefix_private_cluster = optional(string)
+        private_cluster_enabled    = bool
+
+        network_profile            = object({
+            network_plugin    = string
+            network_policy    = string
+            load_balancer_sku = string
+            outbound_type     = string
+            service_cidr      = string
+            dns_service_ip    = string
+        })
+    }))
+}
+
+variable "kubernetes_node_pool" {
+    type = list(object({
+        name               = string
+        kubernetes_cluster = string
+        vm_size            = string
+        node_labels        = optional(map(string))
+        node_taints        = optional(list(string))
+        vnet_subnet        = string
+        tags               = map(string)
+    }))
+}
+
 # variable "load_balancer" {
 #     type = list(object({
 #         name                = string

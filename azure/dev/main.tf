@@ -56,6 +56,19 @@ module "mysql_flexible_server" {
     key_vault              = var.key_vault
 }
 
+module "kubernetes_cluster" {
+    source              = "../modules/kubernetes/cluster"
+    kubernetes_cluster  = var.kubernetes_cluster
+    subnets             = module.subnet.subnet_ids
+}
+
+module "kubernetes_node_pool" {
+    source                = "../modules/kubernetes/nodes"
+    kubernetes_node_pool  = var.kubernetes_node_pool
+    kubernetes_clusters   = module.kubernetes_cluster.kubernetes_cluster_ids
+    subnets               = module.subnet.subnet_ids
+}
+
 # module "load_balancer" {
 #     source        = "../modules/load_balancer/load_balancer"
 #     load_balancer = var.load_balancer
