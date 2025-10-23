@@ -439,3 +439,16 @@ kubernetes_node_pool = [
         }
     }
 ]
+
+container_registry = [
+    {
+        name                = "robotshopdevacr"
+        resource_group_name = "robot-shop"
+        location            = "southindia"
+        sku                 = "Standard"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    }
+]
