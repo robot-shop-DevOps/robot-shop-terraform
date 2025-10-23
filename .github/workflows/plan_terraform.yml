@@ -39,12 +39,6 @@ on:
         required: false
         type: string
 
-      deploy:
-        description: "Apply Terraform changes?"
-        required: false
-        default: false
-        type: boolean
-
       update_lock_file:
         description: "Update Terraform lock file?"
         required: false
