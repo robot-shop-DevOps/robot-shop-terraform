@@ -31,4 +31,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
         service_cidr      = each.value.network_profile.service_cidr
         dns_service_ip    = each.value.network_profile.dns_service_ip
     }
+
+    lifecycle {
+        ignore_changes = [
+            default_node_pool[0].upgrade_settings,
+        ]
+    }
 }
