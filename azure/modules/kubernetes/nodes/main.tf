@@ -13,4 +13,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_node_pool" {
     )
 
     tags                  = each.value.tags
+
+    lifecycle {
+        ignore_changes = [
+            upgrade_settings,
+        ]
+    }
 }
