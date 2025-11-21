@@ -11,7 +11,7 @@ resource "azurerm_storage_account" "storage_account" {
     tags                          = each.value.tags
 
     dynamic "network_rules" {
-        for_each = each.value.network_rules != null ? each.value.network_rules : []
+        for_each = each.value.network_rules != null ? [each.value.network_rules] : []
 
         content {
             default_action             = network_rules.value.default_action
