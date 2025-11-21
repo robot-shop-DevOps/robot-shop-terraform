@@ -87,6 +87,12 @@ jobs:
       with:
         terraform_version: ${{ env.TF_VERSION }}
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+
     - name: Terraform Init
       if : ${{ inputs.update_lock_file == false }}
       run: |
