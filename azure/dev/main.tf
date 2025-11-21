@@ -74,6 +74,18 @@ module "container_registry" {
     container_registry  = var.container_registry
 }
 
+module "storage_account" {
+    source          = "../modules/storage_account"
+    storage_account = var.storage_account
+    subnet          = module.subnet.subnet_ids
+}
+
+module "storage_container" {
+    source            = "../modules/storage_container"
+    storage_container = var.storage_container
+    storage_account   = module.storage_account.storage_account_id
+}
+
 # module "load_balancer" {
 #     source        = "../modules/load_balancer/load_balancer"
 #     load_balancer = var.load_balancer

@@ -452,3 +452,28 @@ container_registry = [
         }
     }
 ]
+
+storage_account = [
+    {
+        name                          = "robotshopdevweb"
+        resource_group_name           = "robot-shop"
+        location                      = "southindia"
+        account_tier                  = "Standard"
+        account_replication_type      = "LRS"
+        access_tier                   = "Hot"
+        public_network_access_enabled = false
+
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    }
+]
+
+storage_container = [
+    {
+        name                  = "static"
+        storage_account       = "robotshopdevweb"
+        container_access_type = "private"
+    }
+]
