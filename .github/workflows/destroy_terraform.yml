@@ -36,7 +36,7 @@ env:
 
 jobs:
   terraform:
-    runs-on: robot-shop-runner
+    runs-on: robot-shop-runner-azure-dev
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3

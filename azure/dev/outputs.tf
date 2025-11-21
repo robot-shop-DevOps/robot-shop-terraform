@@ -63,6 +63,21 @@ output "container_registry_id" {
     value       = module.container_registry.container_registry_ids
 }
 
+output "storage_account_id" {
+    description = "The ID of the Storage Account"
+    value       = module.storage_account.storage_account_id
+}
+
+output "storage_account_name" {
+    description = "The Name of the Storage Account"
+    value       = module.storage_account.storage_account_name
+}
+
+output "storage_container_id" {
+    description = "The ID of the Storage Container"
+    value       = module.storage_container.storage_container_id
+}
+
 # output "load_balancer_id" {
 #     description = "The ID of Load Balancer"
 #     value       = module.load_balancer.load_balancer_ids
