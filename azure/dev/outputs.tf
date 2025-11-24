@@ -78,6 +78,11 @@ output "storage_container_id" {
     value       = module.storage_container.storage_container_id
 }
 
+output "private_endpoint_id" {
+    description = "Map ID of the Private Endpoint"
+    value       = module.private_endpoint.private_endpoint_ids
+}
+
 # output "load_balancer_id" {
 #     description = "The ID of Load Balancer"
 #     value       = module.load_balancer.load_balancer_ids
