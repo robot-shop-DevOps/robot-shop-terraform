@@ -29,6 +29,12 @@ subnet = [
         resource_group   = "robot-shop"
         vnet_name        = "Robot-Shop-Dev"
         address_prefixes = ["10.0.4.0/24"]
+    },
+    {
+        name             = "Private-Endpoint-Subnet"
+        resource_group   = "robot-shop"
+        vnet_name        = "Robot-Shop-Dev"
+        address_prefixes = [ "10.0.3.0/24" ]
     }
 ]
 
@@ -475,5 +481,42 @@ storage_container = [
         name                  = "static"
         storage_account       = "robotshopdevweb"
         container_access_type = "private"
+    }
+]
+
+private_dns_zone = [
+    {
+        name                = "robotshopdevprivatednszone"
+        resource_group_name = "robot-shop"
+        virtual_network     = "Robot-Shop-Dev"
+        
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    }
+]
+
+private_endpoint = [
+    {
+        name                       = "robotshopdevweb-private-endpoint"
+        resource_group_name        = "robot-shop"
+        location                   = "southindia"
+        subnet                     = "Private-Endpoint-Subnet"
+        private_service_connection = {
+            name                        = "blob-private-endpoint"
+            is_manual_connection        = false
+            private_connection_resource = "robotshopdevweb"
+            subresource_names           = ["blob"]
+        }
+        private_dns_zone_group     = {
+            name                 = "robotshopdevweb-privatednszone"
+            private_dns_zone_ids = ["robotshopdevprivatednszone"]
+        }
+
+        tags = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     }
 ]

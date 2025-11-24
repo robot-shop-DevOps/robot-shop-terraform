@@ -86,6 +86,14 @@ module "storage_container" {
     storage_account   = module.storage_account.storage_account_id
 }
 
+module "private_endpoint" {
+    source            = "../modules/private_endpoint"
+    private_endpoint  = var.private_endpoint
+    subnets           = module.subnet.subnet_ids
+    private_dns_zones = module.private_dns_zone.private_dns_zone_ids
+    storage_account   = module.storage_account.storage_account_id
+}
+
 # module "load_balancer" {
 #     source        = "../modules/load_balancer/load_balancer"
 #     load_balancer = var.load_balancer
