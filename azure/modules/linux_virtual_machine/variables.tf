@@ -15,6 +15,10 @@ variable "linux_virtual_machines" {
         source_image_reference_offer     = string
         source_image_reference_sku       = string
         source_image_reference_version   = string
+        tags                             = map(string)
+        identity                         = optional(object({
+            type = string
+        }))
     }))
 }
 

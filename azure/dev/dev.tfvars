@@ -335,6 +335,11 @@ linux_virtual_machines = [
         source_image_reference_offer     = "ubuntu-24_04-lts"
         source_image_reference_sku       = "server"
         source_image_reference_version   = "latest"
+
+        tags = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     },
     {
         name                             = "Jump-Box"
@@ -351,6 +356,11 @@ linux_virtual_machines = [
         source_image_reference_offer     = "ubuntu-24_04-lts"
         source_image_reference_sku       = "server"
         source_image_reference_version   = "latest"
+
+        tags = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     },
     {
         name                             = "Outbound-Internet"
@@ -367,6 +377,11 @@ linux_virtual_machines = [
         source_image_reference_offer     = "ubuntu-24_04-lts"
         source_image_reference_sku       = "server"
         source_image_reference_version   = "latest"
+
+        tags = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     },
     {
         name                             = "Web-Server"
@@ -383,6 +398,15 @@ linux_virtual_machines = [
         source_image_reference_offer     = "ubuntu-24_04-lts"
         source_image_reference_sku       = "server"
         source_image_reference_version   = "latest"
+
+        identity = {
+            type = "SystemAssigned"
+        }
+
+        tags = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     }
 ]
 
