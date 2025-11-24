@@ -486,7 +486,7 @@ storage_container = [
 
 private_dns_zone = [
     {
-        name                = "robotshopdevprivatednszone"
+        name                = "privatelink.blob.core.windows.net"
         resource_group_name = "robot-shop"
         virtual_network     = "Robot-Shop-Dev"
         
@@ -511,7 +511,7 @@ private_endpoint = [
         }
         private_dns_zone_group     = {
             name                 = "robotshopdevweb-privatednszone"
-            private_dns_zone_ids = ["robotshopdevprivatednszone"]
+            private_dns_zone_ids = ["privatelink.blob.core.windows.net"]
         }
 
         tags = {
