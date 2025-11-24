@@ -33,7 +33,16 @@ resource "azurerm_linux_virtual_machine" "vm" {
         version   = each.value.source_image_reference_version
     }
 
+    dynamic "identity" {
+        for_each = each.value.identity != null ? [each.value.identity] : []
+
+        content {
+            type = identity.value.type
+        }
+    }
+
     admin_username                  = each.value.admin_username
     admin_password                  = data.azurerm_key_vault_secret.key_vault_password[each.key].value
     disable_password_authentication = false
+    tags                            = each.value.tags
 }
