@@ -252,19 +252,8 @@ network_security_group = [
         }
         rules               = [
             {
-                name                       = "AllowAzureLoadBalancerProbe"
-                priority                   = 100
-                direction                  = "Inbound"
-                access                     = "Allow"
-                protocol                   = "*"
-                source_port_range          = "*"
-                destination_port_range     = "80"
-                source_address_prefix      = "*"
-                destination_address_prefix = "*"
-            },
-            {
                 name                       = "HTTP"
-                priority                   = 110
+                priority                   = 100
                 direction                  = "Inbound"
                 access                     = "Allow"
                 protocol                   = "Tcp"
@@ -275,13 +264,13 @@ network_security_group = [
             },
             {
                 name                       = "SSH"
-                priority                   = 120
+                priority                   = 110
                 direction                  = "Inbound"
                 access                     = "Allow"
                 protocol                   = "Tcp"
                 source_port_range          = "*"
                 destination_port_range     = "22"
-                source_address_prefix      = "10.0.1.0/24"
+                source_address_prefix      = "*"
                 destination_address_prefix = "*"
             }
         ]
@@ -289,26 +278,6 @@ network_security_group = [
 ]
 
 route_table = [
-    {
-        name                = "Web-Server-Subnet-Route-Table"
-        location            = "southindia"
-        resource_group_name = "robot-shop"
-        subnet              = "Web-Server-Subnet"
-
-        tags = {
-            environment = "dev"
-            project     = "Robot-Shop"
-        }
-
-        route = [
-            {
-                name                   = "Internet"
-                address_prefix         = "0.0.0.0/0"
-                next_hop_type          = "VirtualAppliance"
-                next_hop_in_ip_address = "Outbound-Internet-NIC"
-            }
-        ]
-    },
     {
         name                = "AKS-Subnet-Route-Table"
         location            = "southindia"
