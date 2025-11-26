@@ -259,7 +259,7 @@ network_security_group = [
                 protocol                   = "*"
                 source_port_range          = "*"
                 destination_port_range     = "80"
-                source_address_prefix      = "AzureLoadBalancer"
+                source_address_prefix      = "*"
                 destination_address_prefix = "*"
             },
             {
@@ -270,7 +270,7 @@ network_security_group = [
                 protocol                   = "Tcp"
                 source_port_range          = "*"
                 destination_port_range     = "80"
-                source_address_prefix      = "AzureLoadBalancer"
+                source_address_prefix      = "*"
                 destination_address_prefix = "*"
             },
             {
