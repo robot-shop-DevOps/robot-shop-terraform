@@ -60,6 +60,17 @@ public_ip = [
             environment = "dev"
             project     = "Robot-Shop"
         }
+    },
+    {
+        name                = "Web-Server-Public-IP"
+        location            = "southindia"
+        resource_group_name = "robot-shop"
+        allocation_method   = "Static"
+        sku                 = "Standard"
+        tags                = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
     }
 ]
 
