@@ -129,6 +129,7 @@ network_interface = [
             subnet_name                   = "Web-Server-Subnet"
             private_ip_address_allocation = "Static"
             private_ip_address            = "10.0.2.10"
+            public_ip_address_name        = "Web-Server-Public-IP"
         }
         tags                                           = {
             environment = "dev"
