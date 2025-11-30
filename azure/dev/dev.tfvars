@@ -272,6 +272,28 @@ network_security_group = [
                 destination_port_range     = "22"
                 source_address_prefix      = "*"
                 destination_address_prefix = "*"
+            },
+            {
+                name                       = "Kibana"
+                priority                   = 120
+                direction                  = "Inbound"
+                access                     = "Allow"
+                protocol                   = "Tcp"
+                source_port_range          = "*"
+                destination_port_range     = "5601"
+                source_address_prefix      = "*"
+                destination_address_prefix = "*"
+            },
+            {
+                name                       = "Elasticsearch"
+                priority                   = 130
+                direction                  = "Inbound"
+                access                     = "Allow"
+                protocol                   = "Tcp"
+                source_port_range          = "*"
+                destination_port_range     = "9200"
+                source_address_prefix      = "10.0.4.0/24"
+                destination_address_prefix = "*"
             }
         ]
     }
