@@ -332,8 +332,7 @@ route_table = [
             {
                 name                   = "Internet"
                 address_prefix         = "10.0.2.0/24"
-                next_hop_type          = "VirtualAppliance"
-                next_hop_in_ip_address = "Web-Server-NIC"
+                next_hop_type          = "VnetLocal"
             }
         ]
     }
