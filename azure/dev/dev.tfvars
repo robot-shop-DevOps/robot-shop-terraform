@@ -294,6 +294,17 @@ network_security_group = [
                 destination_port_range     = "9200"
                 source_address_prefix      = "10.0.4.0/24"
                 destination_address_prefix = "*"
+            },
+            {
+                name                       = "Grafana"
+                priority                   = 140
+                direction                  = "Inbound"
+                access                     = "Allow"
+                protocol                   = "Tcp"
+                source_port_range          = "*"
+                destination_port_range     = "3000"
+                source_address_prefix      = "*"
+                destination_address_prefix = "*"
             }
         ]
     }
@@ -317,6 +328,12 @@ route_table = [
                 address_prefix         = "0.0.0.0/0"
                 next_hop_type          = "VirtualAppliance"
                 next_hop_in_ip_address = "Outbound-Internet-NIC"
+            },
+            {
+                name                   = "Internet"
+                address_prefix         = "10.0.2.0/24"
+                next_hop_type          = "VirtualAppliance"
+                next_hop_in_ip_address = "Web-Server-NIC"
             }
         ]
     }
