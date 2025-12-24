@@ -13,7 +13,9 @@ resource "azurerm_route_table" "route_table" {
             name                   = route.value.name
             address_prefix         = route.value.address_prefix
             next_hop_type          = route.value.next_hop_type
-            next_hop_in_ip_address = var.network_interfaces[route.value.next_hop_in_ip_address]
+            next_hop_in_ip_address = try(
+                var.network_interfaces[route.value.next_hop_in_ip_address], null
+            )
         }
     }
 }
