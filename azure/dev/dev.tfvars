@@ -330,7 +330,7 @@ route_table = [
                 next_hop_in_ip_address = "Outbound-Internet-NIC"
             },
             {
-                name                   = "Internet"
+                name                   = "Elasticsearch"
                 address_prefix         = "10.0.2.0/24"
                 next_hop_type          = "VnetLocal"
             }
