@@ -24,12 +24,34 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
 
     network_profile {
-        network_plugin    = each.value.network_profile.network_plugin
-        network_policy    = each.value.network_profile.network_policy
-        load_balancer_sku = each.value.network_profile.load_balancer_sku
-        outbound_type     = each.value.network_profile.outbound_type
-        service_cidr      = each.value.network_profile.service_cidr
-        dns_service_ip    = each.value.network_profile.dns_service_ip
+        network_plugin      = each.value.network_profile.network_plugin
+        network_mode        = try(
+            each.value.network_profile.network_mode, null
+        )
+        network_policy      = try(
+            each.value.network_profile.network_policy, null
+        )
+        network_data_plane  = try(
+            each.value.network_profile.network_data_plane, null
+        )
+        network_plugin_mode = try(
+            each.value.network_profile.network_plugin_mode, null
+        )
+        load_balancer_sku   = try(
+            each.value.network_profile.load_balancer_sku, null
+        )
+        outbound_type       = try(
+            each.value.network_profile.outbound_type, null
+        )
+        pod_cidr            = try(
+            each.value.network_profile.pod_cidr, null
+        )
+        service_cidr        = try(
+            each.value.network_profile.service_cidr, null
+        )
+        dns_service_ip      = try(
+            each.value.network_profile.dns_service_ip, null
+        )
     }
 
     lifecycle {

@@ -467,12 +467,16 @@ kubernetes_cluster = [
         private_cluster_enabled    = true
 
         network_profile            = {
-            network_plugin    = "azure"
-            network_policy    = "azure"
-            load_balancer_sku = "standard"
-            outbound_type     = "userDefinedRouting"
-            service_cidr      = "10.1.0.0/24"
-            dns_service_ip    = "10.1.0.10"
+            network_plugin      = "azure"
+            network_mode        = "bridge"
+            network_policy      = "azure"
+            network_data_plane  = "azure"
+            network_plugin_mode = "overlay"
+            load_balancer_sku   = "standard"
+            outbound_type       = "userDefinedRouting"
+            pod_cidr            = "192.168.0.0/16"
+            service_cidr        = "10.1.0.0/24"
+            dns_service_ip      = "10.1.0.10"
         }
 
         tags                  = {
