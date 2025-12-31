@@ -169,15 +169,19 @@ variable "kubernetes_cluster" {
         private_cluster_enabled    = bool
 
         network_profile            = object({
-            network_plugin    = string
-            network_policy    = string
-            load_balancer_sku = string
-            outbound_type     = string
-            service_cidr      = string
-            dns_service_ip    = string
+            network_plugin      = string
+            network_mode        = optional(string)
+            network_policy      = optional(string)
+            network_data_plane  = optional(string)
+            network_plugin_mode = optional(string)
+            load_balancer_sku   = optional(string)
+            outbound_type       = optional(string)
+            pod_cidr            = optional(string)
+            service_cidr        = optional(string)
+            dns_service_ip      = optional(string)
         })
 
-        tags                  = map(string)
+        tags = map(string)
     }))
 }
 
