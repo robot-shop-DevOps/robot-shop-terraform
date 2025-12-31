@@ -468,7 +468,6 @@ kubernetes_cluster = [
 
         network_profile            = {
             network_plugin      = "azure"
-            network_mode        = "bridge"
             network_policy      = "azure"
             network_data_plane  = "azure"
             network_plugin_mode = "overlay"
