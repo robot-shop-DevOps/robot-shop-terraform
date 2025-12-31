@@ -25,9 +25,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
     network_profile {
         network_plugin      = each.value.network_profile.network_plugin
-        network_mode        = try(
-            each.value.network_profile.network_mode, null
-        )
         network_policy      = try(
             each.value.network_profile.network_policy, null
         )
