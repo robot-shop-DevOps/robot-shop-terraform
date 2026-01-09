@@ -36,10 +36,11 @@ env:
 
 jobs:
   deploy:
-    uses: robot-shop/robot-shop-github-actions/.github/workflows/terraform.yaml@main
+    uses: robot-shop-DevOps/robot-shop-github-actions/.github/workflows/terraform.yaml@main
     with:
       CLOUD_PROVIDER: ${{ github.inputs.CLOUD_PROVIDER }}
       ENVIRONMENT: ${{ github.inputs.ENVIRONMENT }}
       UPDATE_LOCK_FILE: ${{ github.inputs.UPDATE_LOCK_FILE }}
       FORCE_UNLOCK: ${{ github.inputs.FORCE_UNLOCK }}
       DEPLOY: false
+    secrets: inherit
