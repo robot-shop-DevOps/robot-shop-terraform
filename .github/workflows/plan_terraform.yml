@@ -31,9 +31,6 @@ on:
         default: false
         type: boolean
 
-env:
-  TF_VERSION: '1.9.8'
-
 jobs:
   deploy:
     uses: robot-shop-DevOps/robot-shop-github-actions/.github/workflows/terraform.yaml@main
