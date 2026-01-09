@@ -25,8 +25,9 @@ env:
 
 jobs:
   deploy:
-    uses: robot-shop/robot-shop-github-actions/.github/workflows/terraform.yaml@main
+    uses: robot-shop-DevOps/robot-shop-github-actions/.github/workflows/terraform.yaml@main
     with:
-      CLOUD_PROVIDER: ${{ github.inputs.CLOUD_PROVIDER }}
-      ENVIRONMENT: ${{ github.inputs.ENVIRONMENT }}
+      CLOUD_PROVIDER: ${{ github.event.inputs.CLOUD_PROVIDER }}
+      ENVIRONMENT: ${{ github.event.inputs.ENVIRONMENT }}
       DEPLOY: true
+    secrets: inherit
