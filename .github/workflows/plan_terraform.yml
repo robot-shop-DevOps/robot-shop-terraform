@@ -39,5 +39,5 @@ jobs:
       ENVIRONMENT: ${{ github.event.inputs.ENVIRONMENT }}
       UPDATE_LOCK_FILE: ${{ github.event.inputs.UPDATE_LOCK_FILE }}
       FORCE_UNLOCK: ${{ github.event.inputs.FORCE_UNLOCK }}
-      DEPLOY: ${{ github.ref_name == 'main'}}
+      DEPLOY: 'false'
     secrets: inherit

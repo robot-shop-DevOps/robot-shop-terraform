@@ -29,5 +29,5 @@ jobs:
     with:
       CLOUD_PROVIDER: ${{ github.event.inputs.CLOUD_PROVIDER }}
       ENVIRONMENT: ${{ github.event.inputs.ENVIRONMENT }}
-      DEPLOY: ${{ github.ref_name == 'main'}}
+      DEPLOY: 'true'
     secrets: inherit
