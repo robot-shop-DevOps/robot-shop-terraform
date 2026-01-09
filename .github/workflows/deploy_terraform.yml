@@ -3,7 +3,7 @@ name: Deploy Terraform Workflow
 on:
   workflow_dispatch:
     inputs:
-      cloud_provider:
+      CLOUD_PROVIDER:
         description: Cloud Provider
         required: true
         type: choice
@@ -11,7 +11,7 @@ on:
         - azure
         - aws
 
-      environment:
+      ENVIRONMENT:
         description: Environment
         required: false
         type: choice
@@ -24,10 +24,10 @@ env:
   TF_VERSION: '1.9.8'
 
 jobs:
-  terraform:
-    uses: ./.github/workflows/plan_terraform.yml
+  deploy:
+    uses: robot-shop-DevOps/robot-shop-github-actions/.github/workflows/terraform.yaml@main
     with:
-      cloud_provider: ${{ inputs.cloud_provider }}
-      environment: ${{ inputs.environment }}
-      deploy: true
+      CLOUD_PROVIDER: ${{ github.event.inputs.CLOUD_PROVIDER }}
+      ENVIRONMENT: ${{ github.event.inputs.ENVIRONMENT }}
+      DEPLOY: 'true'
     secrets: inherit
