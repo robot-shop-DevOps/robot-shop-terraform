@@ -1,23 +1,9 @@
 name: Plan Terraform Workflow
 
 on:
-  workflow_call:
-    inputs:
-      cloud_provider:
-        required: true
-        type: string
-
-      environment:
-        required: true
-        type: string
-
-      deploy:
-        required: true
-        type: boolean
-
   workflow_dispatch:
     inputs:
-      cloud_provider:
+      CLOUD_PROVIDER:
         description: Cloud Provider
         required: true
         type: choice
@@ -25,7 +11,7 @@ on:
         - azure
         - aws
 
-      environment:
+      ENVIRONMENT:
         description: Environment
         required: false
         type: choice
@@ -34,12 +20,12 @@ on:
         - dev
         - prod
 
-      force_unlock:
+      FORCE_UNLOCK:
         description: "Force unlock state?"
         required: false
         type: string
 
-      update_lock_file:
+      UPDATE_LOCK_FILE:
         description: "Update Terraform lock file?"
         required: false
         default: false
@@ -49,93 +35,11 @@ env:
   TF_VERSION: '1.9.8'
 
 jobs:
-  terraform:
-    runs-on: robot-shop-runner-azure-dev
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
-
-    - name: Set AWS Credentials
-      if: ${{ inputs.cloud_provider == 'aws' }}
-      run: |
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-        echo "Configured AWS creds"
-
-    - name: Set Azure Credentials
-      if: ${{ inputs.cloud_provider == 'azure' }}     
-      run: |
-        if [[ ${{ inputs.environment }} = "dev" ]]; then  
-          echo "Using dev environment"
-          echo "ARM_CLIENT_ID=${{ secrets.ROBOT_SHOP_DEV_AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
-          echo "ARM_CLIENT_SECRET=${{ secrets.ROBOT_SHOP_DEV_AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
-          echo "ARM_SUBSCRIPTION_ID=${{ secrets.ROBOT_SHOP_DEV_AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-
-        elif [[ ${{ inputs.environment }} = "prod" ]]; then
-          echo "Using prod environment"
-          echo "ARM_CLIENT_ID=${{ secrets.ROBOT_SHOP_PROD_AZURE_CLIENT_ID_TERRAFORM }}" >> $GITHUB_ENV
-          echo "ARM_CLIENT_SECRET=${{ secrets.ROBOT_SHOP_PROD_AZURE_CLIENT_SECRET_TERRAFORM }}" >> $GITHUB_ENV
-          echo "ARM_SUBSCRIPTION_ID=${{ secrets.ROBOT_SHOP_PROD_AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-
-        fi
-
-        echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-        echo "Configured Azure creds"
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: ${{ env.TF_VERSION }}
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-
-
-    - name: Terraform Init
-      if : ${{ inputs.update_lock_file == false }}
-      run: |
-        terraform init
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
-
-    - name: Terraform Init with Lock File Update
-      if : ${{ inputs.update_lock_file == true }}
-      run: |
-        terraform init -upgrade
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
-
-    - name: Push lock file to repo
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add .terraform.lock.hcl
-        git commit -m "Updated Terraform lock file" || echo "No changes to commit"
-        git push || echo "No changes to push"
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
-
-    - name: Terraform Validate
-      run: terraform validate
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
-
-    - name: Terraform Force Unlock
-      if: ${{ inputs.force_unlock != '' }}
-      run: |
-        terraform force-unlock -force ${{ inputs.force_unlock }}
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
-
-    - name: Terraform Plan
-      run: |
-        terraform plan -var-file=${{ inputs.environment }}.tfvars -out=tfplan
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
-
-    - name: Upload Terraform Plan
-      uses: actions/upload-artifact@v4
-      with:
-        name: tfplan
-        path: ${{ inputs.cloud_provider }}//${{ inputs.environment }}/tfplan
-
-    - name: Terraform Apply
-      if: ${{ inputs.deploy == true && github.ref_name == 'main'}}
-      run: terraform apply -auto-approve tfplan
-      working-directory: ${{ inputs.cloud_provider }}/${{ inputs.environment }}
+  deploy:
+    uses: robot-shop/robot-shop-github-actions/.github/workflows/terraform.yaml@main
+    with:
+      CLOUD_PROVIDER: ${{ github.inputs.CLOUD_PROVIDER }}
+      ENVIRONMENT: ${{ github.inputs.ENVIRONMENT }}
+      UPDATE_LOCK_FILE: ${{ github.inputs.UPDATE_LOCK_FILE }}
+      FORCE_UNLOCK: ${{ github.inputs.FORCE_UNLOCK }}
+      DEPLOY: false
