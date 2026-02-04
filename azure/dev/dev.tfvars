@@ -584,7 +584,7 @@ public_dns_zone = [
         resource_group_name = "robot-shop"
 
         soa_record = {
-            email = "shashankpalla44@gmail.com"
+            email = "shashankpalla44.gmail.com"
         }
 
         tags = {
