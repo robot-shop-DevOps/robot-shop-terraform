@@ -256,6 +256,50 @@ variable "private_endpoint" {
     }))
 }
 
+variable "public_dns_zone" {
+    type = list(object({
+        name                = string
+        resource_group_name = string
+        soa_record          = object({
+            email         = string
+            expire_time   = optional(number)
+            minimum_ttl   = optional(number)
+            refresh_time  = optional(number)
+            retry_time    = optional(number)
+            serial_number = optional(number)
+            ttl           = optional(number)
+            tags          = optional(map(string))
+        })
+        
+        tags = map(string)
+    }))
+}
+
+variable "dns_a_record" {
+    type = list(object({
+        name                = string
+        resource_group_name = string
+        zone_name           = string
+        ttl                 = number
+        records             = optional(list)
+        target_resource_id  = optional(string)
+        tags                = optional(map(string))
+    }))
+}
+
+variable "dns_txt_record" {
+    type = list(object({
+        name                = string
+        resource_group_name = string
+        zone_name           = string
+        ttl                 = number
+        record              = object({
+            value = string
+        })
+        tags                = optional(map(string))
+    }))
+}
+
 # variable "load_balancer" {
 #     type = list(object({
 #         name                = string

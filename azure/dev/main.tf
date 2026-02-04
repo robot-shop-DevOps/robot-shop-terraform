@@ -94,6 +94,23 @@ module "private_endpoint" {
     storage_account   = module.storage_account.storage_account_id
 }
 
+module "public_dns_zone" {
+    source          = "../modules/public_dns_zone"
+    public_dns_zone = var.public_dns_zone
+}
+
+module "dns_a_record" {
+    source           = "../modules/public_dns_records/dns_a_record"
+    dns_a_record     = var.dns_a_record
+    public_dns_zones = module.public_dns_zone.public_dns_zone_names
+}
+
+module "dns_txt_record" {
+    source           = "../modules/public_dns_records/dns_txt_record"
+    dns_txt_record   = var.dns_txt_record
+    public_dns_zones = module.public_dns_zone.public_dns_zone_names
+}
+
 # module "load_balancer" {
 #     source        = "../modules/load_balancer/load_balancer"
 #     load_balancer = var.load_balancer

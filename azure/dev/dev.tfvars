@@ -577,3 +577,19 @@ private_endpoint = [
         }
     }
 ]
+
+public_dns_zone = [
+    {
+        name                = "robotshopapp.in"
+        resource_group_name = "robot-shop"
+
+        soa_record = {
+            email = "shashankpalla44@gmail.com"
+        }
+
+        tags = {
+            environment = "dev"
+            project     = "Robot-Shop"
+        }
+    }
+]
