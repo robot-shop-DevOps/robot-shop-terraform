@@ -79,8 +79,28 @@ output "storage_container_id" {
 }
 
 output "private_endpoint_id" {
-    description = "Map ID of the Private Endpoint"
+    description = "The ID of the Private Endpoint"
     value       = module.private_endpoint.private_endpoint_ids
+}
+
+output "public_dns_zone_id" {
+    description = "The ID of the Public DNS zone"
+    value       = module.public_dns_zone.public_dns_zone_ids
+}
+
+output "public_dns_zone_soa_record" {
+    description = "The SOA record of the Public DNS zone"
+    value       = module.public_dns_zone.public_dns_zone_soa_records
+}
+
+output "dns_a_record_id" {
+    description = "The ID of the DNS A Record"
+    value       = module.dns_a_record.dns_a_record_ids
+}
+
+output "dns_txt_record_id" {
+    description = "The ID of the DNS TXT Record"
+    value       = module.dns_txt_record.dns_txt_record_ids
 }
 
 # output "load_balancer_id" {
