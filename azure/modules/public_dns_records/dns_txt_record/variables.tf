@@ -9,6 +9,7 @@ variable "dns_txt_record" {
         })
         tags                = optional(map(string))
     }))
+    default = []
 }
 
 variable "public_dns_zones" {

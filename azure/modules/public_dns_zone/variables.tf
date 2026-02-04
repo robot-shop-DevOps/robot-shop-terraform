@@ -15,4 +15,5 @@ variable "public_dns_zone" {
         
         tags = map(string)
     }))
+    default = []
 }

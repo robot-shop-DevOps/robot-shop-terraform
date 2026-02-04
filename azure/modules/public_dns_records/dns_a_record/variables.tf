@@ -8,6 +8,7 @@ variable "dns_a_record" {
         target_resource_id  = optional(string)
         tags                = optional(map(string))
     }))
+    default = []
 }
 
 variable "public_dns_zones" {

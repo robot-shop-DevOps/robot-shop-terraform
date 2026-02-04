@@ -273,6 +273,7 @@ variable "public_dns_zone" {
         
         tags = map(string)
     }))
+    default = []
 }
 
 variable "dns_a_record" {
@@ -285,6 +286,7 @@ variable "dns_a_record" {
         target_resource_id  = optional(string)
         tags                = optional(map(string))
     }))
+    default = []
 }
 
 variable "dns_txt_record" {
@@ -298,6 +300,7 @@ variable "dns_txt_record" {
         })
         tags                = optional(map(string))
     }))
+    default = []
 }
 
 # variable "load_balancer" {
