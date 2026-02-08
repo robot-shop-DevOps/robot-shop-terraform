@@ -14,3 +14,7 @@ variable "dns_a_record" {
 variable "public_dns_zones" {
     type = map(string)
 }
+
+variable "public_ip_address" {
+    type = map(string)
+}

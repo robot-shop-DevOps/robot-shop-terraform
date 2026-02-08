@@ -9,7 +9,7 @@ resource "azurerm_dns_a_record" "dns_a_record" {
         each.value.records, null
     )
     target_resource_id  = try(
-        each.value.target_resource_id, null
+        var.public_ip_address[each.value.target_resource_id], null
     )
     tags                 = try(
         each.value.tags, null
