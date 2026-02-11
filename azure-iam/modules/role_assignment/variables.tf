@@ -1,8 +1,8 @@
 variable "role_assignment" {
     type = list(object({
-        name                 = string
         scope                = string
         principal_id         = string
+        name                 = optional(string)
         principal_type       = optional(string)
         description          = optional(string)
         role_definition_id   = optional(string)

@@ -3,7 +3,9 @@ resource "azurerm_role_assignment" "role_assignment" {
 
     scope                = var.scope[each.value.scope]
     principal_id         = var.principal_id[each.value.principal_id]
-    name                 = each.value.name
+    name                 = try(
+        each.value.name, null
+    )
     principal_type       = try(
         each.value.principal_type, null
     )
