@@ -1,5 +1,5 @@
 resource "azurerm_role_assignment" "role_assignment" {
-    for_each = length(var.role_assignment) > 0 ? { for role in var.role_assignment: role.name => role } : {}
+    for_each = length(var.role_assignment) > 0 ? { for role in var.role_assignment: role.role_name => role } : {}
 
     scope                = var.scope[each.value.scope]
     principal_id         = var.principal_id[each.value.principal_id]
