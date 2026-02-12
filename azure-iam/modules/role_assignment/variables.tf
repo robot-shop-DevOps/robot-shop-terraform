@@ -1,5 +1,6 @@
 variable "role_assignment" {
     type = list(object({
+        role_name            = string   #label for outputs in the module, not passed to main.tf
         scope                = string
         principal_id         = string
         name                 = optional(string)
