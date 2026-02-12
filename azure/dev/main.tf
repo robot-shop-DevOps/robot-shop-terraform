@@ -100,9 +100,10 @@ module "public_dns_zone" {
 }
 
 module "dns_a_record" {
-    source           = "../modules/public_dns_records/dns_a_record"
-    dns_a_record     = var.dns_a_record
-    public_dns_zones = module.public_dns_zone.public_dns_zone_names
+    source            = "../modules/public_dns_records/dns_a_record"
+    dns_a_record      = var.dns_a_record
+    public_dns_zones  = module.public_dns_zone.public_dns_zone_names
+    public_ip_address = module.public_ip.public_ip_ids
 }
 
 module "dns_txt_record" {

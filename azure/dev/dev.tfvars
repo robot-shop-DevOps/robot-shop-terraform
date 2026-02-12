@@ -593,3 +593,13 @@ public_dns_zone = [
         }
     }
 ]
+
+dns_a_record = [
+    {
+        name = "@"
+        resource_group_name = "robot-shop"
+        zone_name = "robotshopapp.in"
+        ttl = 120
+        target_resource_id = "Web-Server-Public-IP"
+    }
+]
