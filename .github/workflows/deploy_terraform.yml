@@ -9,6 +9,7 @@ on:
         type: choice
         options:
         - azure
+        - azure-iam
         - aws
 
       ENVIRONMENT:
