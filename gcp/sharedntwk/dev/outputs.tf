@@ -10,5 +10,5 @@ output "vpc_network_id" {
 
 output "subnetwork_ipv4_ids" {
     description = "Map of Subnetwork IPv4 IDs keyed by Subnetwork name"
-    value       = module.subnetwork.subnetwork_ipv4_ids
+    value       = module.subnetworks.subnetwork_ipv4_ids
 }
