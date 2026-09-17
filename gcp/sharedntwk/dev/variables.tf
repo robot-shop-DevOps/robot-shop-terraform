@@ -1,16 +1,7 @@
 variable "shared_vpc_host" {
     type = list(object({
-        name    = string
-        project = string
-    }))
-    default = []
-}
-
-variable "shared_vpc_service" {
-    type = list(object({
-        name            = string
-        host_project    = string
-        service_project = string
+        project         = string
+        deletion_policy = optional(string, "PREVENT")
     }))
     default = []
 }
