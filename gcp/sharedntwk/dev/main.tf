@@ -7,3 +7,9 @@ module "vpc" {
   source = "../../modules/vpc"
   vpc_network = var.vpc_network
 }
+
+module "subnetworks" {
+  source          = "../../modules/subnetworks"
+  subnetwork-ipv4 = var.subnetwork-ipv4
+  vpc_network     = module.vpc.vpc_network_id
+}

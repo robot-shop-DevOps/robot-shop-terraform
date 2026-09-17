@@ -13,3 +13,13 @@ vpc_network = [
         routing_mode            = "REGIONAL"
     }
 ]
+
+subnetwork-ipv4 = [
+    {
+        name          = "robotshop-k8s-dev-subnet"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        region        = "asia-south1"
+        description   = "Subnet for Robot Shop Kubernetes Dev"
+        ip_cidr_range = "10.0.0.0/24"
+    }
+]

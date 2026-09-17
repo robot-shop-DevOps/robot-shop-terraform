@@ -17,3 +17,13 @@ variable "vpc_network" {
     }))
     default = []
 }
+
+variable "subnetwork-ipv4" {
+    type = list(object({
+        name          = string
+        network       = string
+        region        = string
+        description   = optional(string)
+        ip_cidr_range = string
+    }))
+}

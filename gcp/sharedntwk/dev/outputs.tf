@@ -7,3 +7,8 @@ output "vpc_network_id" {
     description = "VPC Network ID"
     value       = module.vpc.vpc_network_id
 }
+
+output "subnetwork_ipv4_ids" {
+    description = "Map of Subnetwork IPv4 IDs keyed by Subnetwork name"
+    value       = module.subnetworks.subnetwork-ipv4-ids
+}
