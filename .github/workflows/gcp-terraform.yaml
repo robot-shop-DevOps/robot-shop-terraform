@@ -1,0 +1,42 @@
+name: GCP Terraform Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        description: Environment
+        required: false
+        type: choice
+        default: dev
+        options:
+        - dev
+
+      TERRAFORM_STACK:
+        description: Terraform Stack
+        required: true
+        type: choice
+        options:
+          - sharedntwk
+
+      TERRAFORM_EXTRA_ARGS:
+        required: false
+        type: string
+        default: ""
+
+      TERRAFORM_OVERRIDE:
+        required: false
+        type: string
+        default: ""
+
+
+jobs:
+  deploy:
+    uses: robot-shop-DevOps/robot-shop-github-actions/.github/workflows/gcp-terraform.yaml@gcp
+    with:
+      ENVIRONMENT: ${{ github.event.inputs.ENVIRONMENT }}
+      GCP_PROJECT: "robotshop-${{ github.event.inputs.TERRAFORM_STACK }}-${{ github.event.inputs.ENVIRONMENT }}"
+      TERRAFORM_SERVICE_ACCOUNT: "terraform@$robotshop-${{ github.event.inputs.TERRAFORM_STACK }}-${{ github.event.inputs.ENVIRONMENT }}.iam.gserviceaccount.com"
+      TERRAFORM_EXTRA_ARGS: ${{ github.event.inputs.TERRAFORM_EXTRA_ARGS }}
+      TERRAFORM_OVERRIDE: ${{ github.event.inputs.TERRAFORM_OVERRIDE }}
+      TERRAFORM_WORKING_DIR: gcp/${{ github.event.inputs.TERRAFORM_STACK }}/${{ github.event.inputs.ENVIRONMENT }}
+    secrets: inherit
