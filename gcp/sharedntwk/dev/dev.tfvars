@@ -4,6 +4,13 @@ shared_vpc_host = [
     }
 ]
 
+shared_vpc_service = [
+    {
+        host_project    = "robotshop-sharedntwk-dev"
+        service_project = "robotshop-k8s-dev"
+    }
+]
+
 vpc_network = [
     {
         name                    = "robotshop-sharedntwk-dev-vpc"

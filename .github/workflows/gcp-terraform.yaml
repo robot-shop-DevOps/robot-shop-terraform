@@ -17,6 +17,7 @@ on:
         type: choice
         options:
           - sharedntwk
+          - k8s
 
       TERRAFORM_EXTRA_ARGS:
         required: false
