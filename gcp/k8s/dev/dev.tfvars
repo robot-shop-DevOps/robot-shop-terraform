@@ -1,0 +1,8 @@
+k3s_controlplane_machine_type          = "e2-medium"
+k3s_controlplane_name                  = "rbtsk8sdcp01"
+k3s_controlplane_zone                  = "asia-south1-a"
+k3s_controlplane_project               = "robotshop-k8s-dev"
+k3s_controlplane_subnetwork            = "robotshop-k8s-dev-subnet"
+k3s_controlplane_subnetwork_project    = "robotshop-sharedntwk-dev"
+k3s_controlplane_service_account_email = "rbtsk8sdcp@robotshop-k8s-dev.iam.gserviceaccount.com"
+k3s_controlplane_boot_disk_image       = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2404-lts-amd64"
