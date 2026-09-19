@@ -7,7 +7,7 @@ variable "name" {
 }
 
 variable "zone" {
-  type = optional(string)
+  type = string
 }
 
 variable "subnetwork" {
@@ -19,11 +19,13 @@ variable "subnetwork_project" {
 }
 
 variable "description" {
-  type = optional(string)
+  type    = string
+  default = ""
 }
 
 variable "hostname" {
-  type = optional(string)
+  type    = string
+  default = ""
 }
 
 variable "project" {
@@ -40,17 +42,18 @@ variable "service_account_scopes" {
 }
 
 variable "boot_disk_auto_delete" {
-  type    = optional(bool)
+  type    = bool
   default = true
 }
 
 variable "boot_disk_type" {
   type    = string
-  default = "pd-ssd"
+  default = "pd-standard"
 }
 
 variable "boot_disk_size" {
-  type = optional(string)
+  type = string
+  default = "30"
 }
 
 variable "boot_disk_image" {
