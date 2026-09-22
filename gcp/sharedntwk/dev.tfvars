@@ -48,5 +48,5 @@ nat_subnetwork_project      = "robotshop-sharedntwk-dev"
 nat_service_account_email   = "rbtsntwkdnat@robotshop-sharedntwk-dev.iam.gserviceaccount.com"
 nat_boot_disk_image         = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2404-lts-amd64"
 nat_can_ip_forward          = true
-nat_metadata_startup_script = "../scripts/nat.sh"
+nat_metadata_startup_script = "scripts/nat.sh"
 nat_assign_public_ip        = true
