@@ -70,6 +70,11 @@ variable "metadata_startup_script" {
   default = ""
 }
 
+variable "assign_public_ip" {
+  type    = bool
+  default = false
+}
+
 variable "access_config_network_tier" {
   type    = string
   default = "STANDARD"

@@ -15,8 +15,11 @@ resource "google_compute_instance" "compute_instance" {
         subnetwork         = var.subnetwork
         subnetwork_project = var.subnetwork_project
 
-        access_config {
-            network_tier = var.access_config_network_tier
+        dynamic "access_config" {
+            for_each = var.assign_public_ip ? [1] : []
+            content {
+                network_tier = var.access_config_network_tier
+            }
         }
     }
 
