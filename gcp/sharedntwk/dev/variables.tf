@@ -56,10 +56,6 @@ variable "nat_project" {
   type = string
 }
 
-variable "nat_project" {
-  type = string
-}
-
 variable "nat_service_account_email" {
   type = string
 }
