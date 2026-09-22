@@ -69,3 +69,8 @@ variable "metadata_startup_script" {
   type    = string
   default = ""
 }
+
+variable "access_config_network_tier" {
+  type    = string
+  default = "STANDARD"
+}
