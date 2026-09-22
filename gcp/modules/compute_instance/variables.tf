@@ -59,3 +59,23 @@ variable "boot_disk_size" {
 variable "boot_disk_image" {
   type    = string
 }
+
+variable "can_ip_forward" {
+  type    = bool
+  default = false
+}
+
+variable "metadata_startup_script" {
+  type    = string
+  default = ""
+}
+
+variable "assign_public_ip" {
+  type    = bool
+  default = false
+}
+
+variable "access_config_network_tier" {
+  type    = string
+  default = "STANDARD"
+}

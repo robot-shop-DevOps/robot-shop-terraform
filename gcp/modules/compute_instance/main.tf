@@ -1,14 +1,26 @@
 resource "google_compute_instance" "compute_instance" {
-    name         = var.name
-    project      = var.project
-    zone         = var.zone
-    machine_type = var.machine_type
-    description  = var.description
-    hostname     = var.hostname
+    name           = var.name
+    project        = var.project
+    zone           = var.zone
+    machine_type   = var.machine_type
+    description    = var.description
+    hostname       = var.hostname
+    can_ip_forward = var.can_ip_forward
+    
+    metadata = {
+        startup-script = var.metadata_startup_script
+    }
 
     network_interface {
         subnetwork         = var.subnetwork
         subnetwork_project = var.subnetwork_project
+
+        dynamic "access_config" {
+            for_each = var.assign_public_ip ? [1] : []
+            content {
+                network_tier = var.access_config_network_tier
+            }
+        }
     }
 
     service_account {
