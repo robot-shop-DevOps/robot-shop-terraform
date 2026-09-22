@@ -59,3 +59,13 @@ variable "boot_disk_size" {
 variable "boot_disk_image" {
   type    = string
 }
+
+variable "can_ip_forward" {
+  type    = bool
+  default = false
+}
+
+variable "metadata_startup_script" {
+  type    = string
+  default = ""
+}
