@@ -18,3 +18,19 @@ module "subnetworks" {
   subnetwork-ipv4 = var.subnetwork-ipv4
   vpc_network     = module.vpc.vpc_network_id
 }
+
+module "nat" {
+  source = "../../modules/compute_instance"
+
+  machine_type            = var.nat_machine_type
+  name                    = var.nat_name
+  zone                    = var.nat_zone
+  subnetwork              = var.nat_subnetwork
+  subnetwork_project      = var.nat_project
+  project                 = var.nat_project
+  service_account_email   = var.nat_service_account_email
+  boot_disk_image         = var.nat_boot_disk_image
+  can_ip_forward          = var.nat_can_ip_forward
+  metadata_startup_script = file(var.nat_metadata_startup_script)
+  assign_public_ip        = var.nat_assign_public_ip
+}
