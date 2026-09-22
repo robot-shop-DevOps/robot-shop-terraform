@@ -26,7 +26,7 @@ module "nat" {
   name                    = var.nat_name
   zone                    = var.nat_zone
   subnetwork              = var.nat_subnetwork
-  subnetwork_project      = var.nat_project
+  subnetwork_project      = var.nat_subnetwork_project
   project                 = var.nat_project
   service_account_email   = var.nat_service_account_email
   boot_disk_image         = var.nat_boot_disk_image

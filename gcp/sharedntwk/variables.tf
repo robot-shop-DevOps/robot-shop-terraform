@@ -48,6 +48,10 @@ variable "nat_zone" {
   type = string
 }
 
+variable "nat_subnetwork_project" {
+  type = string
+}
+
 variable "nat_subnetwork" {
   type = string
 }
