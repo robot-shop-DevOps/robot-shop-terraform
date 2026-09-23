@@ -82,3 +82,45 @@ variable "nat_assign_public_ip" {
   type    = bool
   default = false
 }
+
+variable "vpn_machine_type" {
+  type = string
+}
+
+variable "vpn_name" {
+  type = string
+}
+
+variable "vpn_zone" {
+  type = string
+}
+
+variable "vpn_subnetwork_project" {
+  type = string
+}
+
+variable "vpn_subnetwork" {
+  type = string
+}
+
+variable "vpn_project" {
+  type = string
+}
+
+variable "vpn_service_account_email" {
+  type = string
+}
+
+variable "vpn_boot_disk_image" {
+  type    = string
+}
+
+variable "vpn_can_ip_forward" {
+  type    = bool
+  default = false
+}
+
+variable "vpn_assign_public_ip" {
+  type    = bool
+  default = false
+}
