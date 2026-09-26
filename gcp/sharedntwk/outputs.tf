@@ -17,3 +17,18 @@ output "subnetwork_ipv4_ids" {
     description = "Map of Subnetwork IPv4 IDs keyed by Subnetwork name"
     value       = module.subnetworks.subnetwork-ipv4-ids
 }
+
+output "nat_instance_id" {
+    description = "NAT Instance ID"
+    value       = module.nat.compute_instance_id
+}
+
+output "vpn_instance_id" {
+    description = "VPN Instance ID"
+    value       = module.vpn.compute_instance_id
+}
+
+output "asia_south1_firewall_policy_id" {
+    description = "Asia South1 Firewall Policy ID"
+    value       = module.asia_south1_firewall_policy.network_firewall_policy_id
+}
