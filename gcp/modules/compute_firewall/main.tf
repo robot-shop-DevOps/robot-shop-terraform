@@ -13,13 +13,13 @@ resource "google_compute_firewall" "firewall" {
     disabled  = each.value.disabled
 
     source_ranges           = each.value.source_ranges
-    source_tags             = each.value.source_tags
-    source_service_accounts = each.value.source_service_accounts
+    source_tags             = each.value.source_service_accounts != null ? null : each.value.source_tags
+    source_service_accounts = each.value.source_tags != null ? null : each.value.source_service_accounts
 
     destination_ranges      = each.value.destination_ranges
 
-    target_tags             = each.value.target_tags
-    target_service_accounts = each.value.target_service_accounts
+    target_tags             = each.value.target_service_accounts != null ? null : each.value.target_tags
+    target_service_accounts = each.value.target_tags != null ? null : each.value.target_service_accounts
 
     dynamic "allow" {
         for_each = each.value.allow
