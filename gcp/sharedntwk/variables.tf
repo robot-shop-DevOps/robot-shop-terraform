@@ -177,6 +177,11 @@ variable "asia_south1_firewall_policy_project" {
   type = string
 }
 
+variable "asia_south1_firewall_policy_deletion_policy" {
+  type    = string
+  default = "DELETE"
+}
+
 variable "asia_south1_firewall_policy_rules" {
   type = list(object({
     rule_name               = string
