@@ -9,13 +9,13 @@ variable "firewall_rules" {
     direction = optional(string, "INGRESS")
     disabled  = optional(bool, false)
 
-    source_ranges           = optional(list(string), [])
-    source_tags             = optional(list(string), [])
-    source_service_accounts = optional(list(string), [])
+    source_ranges           = optional(list(string))
+    source_tags             = optional(list(string))
+    source_service_accounts = optional(list(string))
 
-    destination_ranges      = optional(list(string), [])
-    target_tags             = optional(list(string), [])
-    target_service_accounts = optional(list(string), [])
+    destination_ranges      = optional(list(string))
+    target_tags             = optional(list(string))
+    target_service_accounts = optional(list(string))
 
     allow = optional(list(object({
       protocol = string
