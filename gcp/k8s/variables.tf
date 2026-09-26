@@ -29,3 +29,8 @@ variable "k3s_controlplane_service_account_email" {
 variable "k3s_controlplane_boot_disk_image" {
   type    = string
 }
+
+variable "k3s_network_tags" {
+  type    = list(string)
+  default = []
+}

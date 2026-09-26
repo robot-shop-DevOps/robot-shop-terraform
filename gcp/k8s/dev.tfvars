@@ -6,3 +6,4 @@ k3s_controlplane_subnetwork            = "robotshop-k8s-dev-subnet"
 k3s_controlplane_subnetwork_project    = "robotshop-sharedntwk-dev"
 k3s_controlplane_service_account_email = "rbtsk8sdcp@robotshop-k8s-dev.iam.gserviceaccount.com"
 k3s_controlplane_boot_disk_image       = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2404-lts-amd64"
+k3s_network_tags                       = ["allow-ssh"]
