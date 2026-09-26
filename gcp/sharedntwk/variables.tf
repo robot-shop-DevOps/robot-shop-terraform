@@ -124,3 +124,39 @@ variable "vpn_assign_public_ip" {
   type    = bool
   default = false
 }
+
+variable "asia_south1_firewall_policy_name" {
+  type = string
+}
+
+variable "asia_south1_firewall_policy_description" {
+  type    = string
+  default = ""
+}
+
+variable "asia_south1_firewall_policy_region" {
+  type = string
+}
+
+variable "asia_south1_firewall_policy_project" {
+  type = string
+}
+
+variable "asia_south1_firewall_policy_rules" {
+  type = list(object({
+    rule_name               = string
+    description             = optional(string, "")
+    priority                = number
+    action                  = string
+    direction               = string
+    target_secure_tags      = optional(list(string), [])
+    target_service_accounts = optional(list(string), [])
+    match_src_ip_ranges     = optional(list(string), [])
+    match_dest_ip_ranges    = optional(list(string), [])
+    layer4_configs          = optional(list(object({
+      ip_protocol = string
+      ports       = optional(list(string), [])
+    })), 
+    [])
+  }))
+}

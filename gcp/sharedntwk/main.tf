@@ -49,3 +49,13 @@ module "vpn" {
   can_ip_forward          = var.vpn_can_ip_forward
   assign_public_ip        = var.vpn_assign_public_ip
 }
+
+module "asia_south1_firewall_policy" {
+  source = "../modules/regional_network_firewall_policy"
+
+  name            = var.asia_south1_firewall_policy_name
+  description     = var.asia_south1_firewall_policy_description
+  region          = var.asia_south1_firewall_policy_region
+  project         = var.asia_south1_firewall_policy_project
+  rules           = var.asia_south1_firewall_policy_rules
+}
