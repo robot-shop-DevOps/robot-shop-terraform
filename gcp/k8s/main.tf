@@ -1,5 +1,5 @@
 module "k3s_controlplane" {
-  source = "../../modules/compute_instance"
+  source = "../modules/compute_instance"
 
   machine_type          = var.k3s_controlplane_machine_type
   name                  = var.k3s_controlplane_name
