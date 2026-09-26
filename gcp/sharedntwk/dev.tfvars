@@ -149,3 +149,73 @@ firewall_rules = [
         ]
     }
 ]
+
+asia_south1_firewall_policy_name        = "rbtsntwkdfwpolicy"
+asia_south1_firewall_policy_description = "Firewall Policy for Robot Shop Dev"
+asia_south1_firewall_policy_region      = "asia-south1"
+asia_south1_firewall_policy_project     = "robotshop-sharedntwk-dev"
+asia_south1_firewall_policy_rules = [
+    {
+        rule_name                 = "allow-ssh"
+        description               = "Allow SSH traffic"
+        priority                  = 1000
+        action                    = "allow"
+        direction                 = "INGRESS"
+        target_secure_tags        = ["allow-ssh"]
+        match_src_ip_ranges       = ["10.50.0.0/24"]
+
+        layer4_configs          = [
+            {
+                ip_protocol = "tcp"
+                ports       = ["22"]
+            }
+        ]
+    },
+    {
+        rule_name                 = "allow-icmp"
+        description               = "Allow ICMP traffic"
+        priority                  = 1001
+        action                    = "allow"
+        direction                 = "INGRESS"
+        target_secure_tags        = ["allow-icmp"]
+        match_src_ip_ranges       = ["10.50.0.0/24"]
+
+        layer4_configs          = [
+            {
+                ip_protocol = "icmp"
+            }
+        ]
+    },
+    {
+        rule_name                 = "allow-http"
+        description               = "Allow HTTP traffic"
+        priority                  = 1002
+        action                    = "allow"
+        direction                 = "INGRESS"
+        target_secure_tags        = ["allow-http"]
+        match_src_ip_ranges       = ["10.50.0.0/24"]
+
+        layer4_configs          = [
+            {
+                ip_protocol = "tcp"
+                ports       = ["80"]
+            }
+        ]
+    },
+    {
+        rule_name                 = "allow-https"
+        description               = "Allow HTTPS traffic"
+        priority                  = 1003
+        action                    = "allow"
+        direction                 = "INGRESS"
+        target_secure_tags        = ["allow-https"]
+        match_src_ip_ranges       = ["10.50.0.0/24"]
+
+        layer4_configs          = [
+            {
+                ip_protocol = "tcp"
+                ports       = ["443"]
+            }
+        ]
+    }
+]
