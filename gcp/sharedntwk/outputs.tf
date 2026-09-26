@@ -28,7 +28,7 @@ output "vpn_instance_id" {
     value       = module.vpn.compute_instance_id
 }
 
-output "asia_south1_firewall_policy_id" {
-    description = "Asia South1 Firewall Policy ID"
-    value       = module.asia_south1_firewall_policy.network_firewall_policy_id
+output "firewall_rule_ids" {
+    description = "Map of Firewall Rule IDs keyed by Firewall Rule Name"
+    value       = module.firewall_rules.compute_firewall_id
 }

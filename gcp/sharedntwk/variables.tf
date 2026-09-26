@@ -125,38 +125,37 @@ variable "vpn_assign_public_ip" {
   default = false
 }
 
-variable "asia_south1_firewall_policy_name" {
-  type = string
-}
-
-variable "asia_south1_firewall_policy_description" {
-  type    = string
-  default = ""
-}
-
-variable "asia_south1_firewall_policy_region" {
-  type = string
-}
-
-variable "asia_south1_firewall_policy_project" {
-  type = string
-}
-
-variable "asia_south1_firewall_policy_rules" {
+variable "firewall_rules" {
   type = list(object({
-    rule_name               = string
-    description             = optional(string, "")
-    priority                = number
-    action                  = string
-    direction               = string
-    target_secure_tags      = optional(list(string), [])
+    name        = string
+    description = optional(string, "")
+    network     = string
+    project     = string
+
+    priority  = optional(number, 1000)
+    direction = optional(string, "INGRESS")
+    disabled  = optional(bool, false)
+
+    source_ranges           = optional(list(string), [])
+    source_tags             = optional(list(string), [])
+    source_service_accounts = optional(list(string), [])
+
+    destination_ranges      = optional(list(string), [])
+    target_tags             = optional(list(string), [])
     target_service_accounts = optional(list(string), [])
-    match_src_ip_ranges     = optional(list(string), [])
-    match_dest_ip_ranges    = optional(list(string), [])
-    layer4_configs          = optional(list(object({
-      ip_protocol = string
-      ports       = optional(list(string), [])
-    })), 
-    [])
+
+    allow = optional(list(object({
+      protocol = string
+      ports    = optional(list(string), [])
+    })), [])
+
+    deny = optional(list(object({
+      protocol = string
+      ports    = optional(list(string), [])
+    })), [])
+
+    log_config = optional(object({
+      metadata = string
+    }), null)
   }))
 }

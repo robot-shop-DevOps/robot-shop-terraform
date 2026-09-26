@@ -62,71 +62,89 @@ vpn_boot_disk_image         = "projects/ubuntu-os-cloud/global/images/family/ubu
 vpn_can_ip_forward          = true
 vpn_assign_public_ip        = true
 
-asia_south1_firewall_policy_name        = "rbtsntwkdfwpolicy"
-asia_south1_firewall_policy_description = "Firewall Policy for Robot Shop Dev"
-asia_south1_firewall_policy_region      = "asia-south1"
-asia_south1_firewall_policy_project     = "robotshop-sharedntwk-dev"
-asia_south1_firewall_policy_rules = [
+firewall_rules = [
     {
-        rule_name                 = "allow-ssh"
-        description               = "Allow SSH traffic"
-        priority                  = 1000
-        action                    = "allow"
-        direction                 = "INGRESS"
-        target_secure_tags        = ["allow-ssh"]
-        match_src_ip_ranges       = ["10.50.0.0/24"]
+        name          = "allow-ssh"
+        description   = "Allow SSH traffic"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        project       = "robotshop-sharedntwk-dev"
+        priority      = 1000
+        direction     = "INGRESS"
+        source_ranges = ["10.50.0.0/24"]
+        target_tags   = ["allow-ssh"]
 
-        layer4_configs          = [
+        allow = [
             {
-                ip_protocol = "tcp"
-                ports       = ["22"]
+                protocol = "tcp"
+                ports    = ["22"]
+            }
+        ]   
+    },
+    {
+        name          = "allow-icmp"
+        description   = "Allow ICMP traffic"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        project       = "robotshop-sharedntwk-dev"
+        priority      = 1001
+        direction     = "INGRESS"
+        source_ranges = ["10.50.0.0/24"]
+        target_tags   = ["allow-icmp"]
+
+        allow = [
+            {
+                protocol = "icmp"
             }
         ]
     },
     {
-        rule_name                 = "allow-icmp"
-        description               = "Allow ICMP traffic"
-        priority                  = 1001
-        action                    = "allow"
-        direction                 = "INGRESS"
-        target_secure_tags        = ["allow-icmp"]
-        match_src_ip_ranges       = ["10.50.0.0/24"]
+        name          = "allow-int-http"
+        description   = "Allow Internal HTTP traffic"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        project       = "robotshop-sharedntwk-dev"
+        priority      = 1002
+        direction     = "INGRESS"
+        source_ranges = ["10.50.0.0/24"]
+        target_tags   = ["allow-int-http"]
 
-        layer4_configs          = [
+        allow = [
             {
-                ip_protocol = "icmp"
+                protocol = "tcp"
+                ports    = ["80"]
             }
         ]
     },
     {
-        rule_name                 = "allow-http"
-        description               = "Allow HTTP traffic"
-        priority                  = 1002
-        action                    = "allow"
-        direction                 = "INGRESS"
-        target_secure_tags        = ["allow-http"]
-        match_src_ip_ranges       = ["10.50.0.0/24"]
+        name          = "allow-int-https"
+        description   = "Allow Internal HTTPS traffic"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        project       = "robotshop-sharedntwk-dev"
+        priority      = 1003
+        direction     = "INGRESS"
+        source_ranges = ["10.50.0.0/24"]
+        target_tags   = ["allow-int-https"]
 
-        layer4_configs          = [
+        allow = [
             {
-                ip_protocol = "tcp"
-                ports       = ["80"]
+                protocol = "tcp"
+                ports    = ["443"]
             }
         ]
     },
     {
-        rule_name                 = "allow-https"
-        description               = "Allow HTTPS traffic"
-        priority                  = 1003
-        action                    = "allow"
-        direction                 = "INGRESS"
-        target_secure_tags        = ["allow-https"]
-        match_src_ip_ranges       = ["10.50.0.0/24"]
+        name          = "allow-udp-vpn-server"
+        description   = "Allow UDP traffic to VPN Server"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        project       = "robotshop-sharedntwk-dev"
+        priority      = 1003
+        direction     = "INGRESS"
+        source_ranges = ["0.0.0.0/0"]
 
-        layer4_configs          = [
+        target_service_accounts = ["rbtsntwkdvpn@robotshop-sharedntwk-dev.iam.gserviceaccount.com"]
+
+        allow = [
             {
-                ip_protocol = "tcp"
-                ports       = ["443"]
+                protocol = "udp"
+                ports    = ["51820"]
             }
         ]
     }
