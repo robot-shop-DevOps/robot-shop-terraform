@@ -83,6 +83,11 @@ variable "nat_assign_public_ip" {
   default = false
 }
 
+variable "nat_network_tags" {
+  type    = list(string)
+  default = []
+}
+
 variable "vpn_machine_type" {
   type = string
 }
@@ -123,6 +128,11 @@ variable "vpn_can_ip_forward" {
 variable "vpn_assign_public_ip" {
   type    = bool
   default = false
+}
+
+variable "vpn_network_tags" {
+  type    = list(string)
+  default = []
 }
 
 variable "firewall_rules" {

@@ -33,6 +33,7 @@ module "nat" {
   can_ip_forward          = var.nat_can_ip_forward
   metadata_startup_script = file(var.nat_metadata_startup_script)
   assign_public_ip        = var.nat_assign_public_ip
+  network_tags            = var.nat_network_tags
 }
 
 module "vpn" {
@@ -48,6 +49,7 @@ module "vpn" {
   boot_disk_image         = var.vpn_boot_disk_image
   can_ip_forward          = var.vpn_can_ip_forward
   assign_public_ip        = var.vpn_assign_public_ip
+  network_tags            = var.vpn_network_tags
 }
 
 module "firewall_rules" {
