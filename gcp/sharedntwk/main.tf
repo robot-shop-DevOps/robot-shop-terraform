@@ -63,4 +63,5 @@ module "asia_south1_firewall_policy" {
   region          = var.asia_south1_firewall_policy_region
   project         = var.asia_south1_firewall_policy_project
   rules           = var.asia_south1_firewall_policy_rules
+  deletion_policy = var.asia_south1_firewall_policy_deletion_policy
 }
