@@ -54,14 +54,3 @@ module "firewall_rules" {
   source         = "../modules/compute_firewall"
   firewall_rules = var.firewall_rules
 }
-
-module "asia_south1_firewall_policy" {
-  source = "../modules/regional_network_firewall_policy"
-
-  name            = var.asia_south1_firewall_policy_name
-  description     = var.asia_south1_firewall_policy_description
-  region          = var.asia_south1_firewall_policy_region
-  project         = var.asia_south1_firewall_policy_project
-  rules           = var.asia_south1_firewall_policy_rules
-  deletion_policy = var.asia_south1_firewall_policy_deletion_policy
-}
