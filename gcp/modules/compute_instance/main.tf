@@ -6,6 +6,7 @@ resource "google_compute_instance" "compute_instance" {
     description    = var.description
     hostname       = var.hostname
     can_ip_forward = var.can_ip_forward
+    tags           = var.network_tags
     
     metadata = {
         startup-script = var.metadata_startup_script

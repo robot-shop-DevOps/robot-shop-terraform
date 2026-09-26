@@ -79,3 +79,8 @@ variable "access_config_network_tier" {
   type    = string
   default = "STANDARD"
 }
+
+variable "network_tags" {
+  type    = list(string)
+  default = []
+}

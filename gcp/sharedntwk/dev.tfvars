@@ -50,6 +50,7 @@ nat_boot_disk_image         = "projects/ubuntu-os-cloud/global/images/family/ubu
 nat_can_ip_forward          = true
 nat_metadata_startup_script = "scripts/nat.sh"
 nat_assign_public_ip        = true
+nat_network_tags            = ["allow-ssh"]
 
 vpn_machine_type            = "e2-micro"
 vpn_name                    = "rbtsntwkdvpn"
@@ -61,6 +62,7 @@ vpn_service_account_email   = "rbtsntwkdvpn@robotshop-sharedntwk-dev.iam.gservic
 vpn_boot_disk_image         = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2404-lts-amd64"
 vpn_can_ip_forward          = true
 vpn_assign_public_ip        = true
+vpn_network_tags            = ["allow-ssh"]
 
 firewall_rules = [
     {
