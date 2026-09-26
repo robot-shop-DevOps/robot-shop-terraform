@@ -15,7 +15,6 @@ resource "google_compute_region_network_firewall_policy_with_rules" "regional_ne
             priority    = rule.value.priority
             action      = rule.value.action
             direction   = rule.value.direction
-            target_type = rule.value.target_type
 
             dynamic "target_secure_tag" {
                 for_each = rule.value.target_secure_tags

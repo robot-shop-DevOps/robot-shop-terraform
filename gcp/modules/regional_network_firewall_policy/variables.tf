@@ -34,7 +34,6 @@ variable "rules" {
     direction               = string
     target_secure_tags      = optional(list(string), [])
     target_service_accounts = optional(list(string), [])
-    target_type             = optional(string, "INSTANCES")
     match_src_ip_ranges     = optional(list(string), [])
     match_dest_ip_ranges    = optional(list(string), [])
     layer4_configs          = optional(list(object({
