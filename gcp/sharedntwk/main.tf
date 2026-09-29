@@ -56,3 +56,16 @@ module "firewall_rules" {
   source         = "../modules/compute_firewall"
   firewall_rules = var.firewall_rules
 }
+
+module "vpn_route" {
+  source = "../modules/compute_route"
+
+  name                   = var.vpn_route_name
+  dest_range             = var.vpn_route_dest_range
+  network                = module.vpc.vpc_network_id
+  description            = var.vpn_route_description
+  priority               = var.vpn_route_priority
+  project                = var.vpn_route_project
+  next_hop_instance      = var.vpn_route_next_hop_instance
+  next_hop_instance_zone = var.vpn_route_next_hop_instance_zone
+}

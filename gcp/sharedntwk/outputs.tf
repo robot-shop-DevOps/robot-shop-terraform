@@ -32,3 +32,8 @@ output "firewall_rule_ids" {
     description = "Map of Firewall Rule IDs keyed by Firewall Rule Name"
     value       = module.firewall_rules.compute_firewall_id
 }
+
+output "vpn_route_id" {
+    description = "VPN Route ID"
+    value       = module.vpn_route.route_id
+}
