@@ -72,7 +72,7 @@ firewall_rules = [
         project       = "robotshop-sharedntwk-dev"
         priority      = 1000
         direction     = "INGRESS"
-        source_ranges = ["10.50.0.0/24"]
+        source_ranges = ["172.22.22.0/24"]
         target_tags   = ["allow-ssh"]
 
         allow = [
@@ -89,7 +89,7 @@ firewall_rules = [
         project       = "robotshop-sharedntwk-dev"
         priority      = 1001
         direction     = "INGRESS"
-        source_ranges = ["10.50.0.0/24"]
+        source_ranges = ["172.22.22.0/24"]
         target_tags   = ["allow-icmp"]
 
         allow = [
@@ -105,7 +105,7 @@ firewall_rules = [
         project       = "robotshop-sharedntwk-dev"
         priority      = 1002
         direction     = "INGRESS"
-        source_ranges = ["10.50.0.0/24"]
+        source_ranges = ["172.22.22.0/24"]
         target_tags   = ["allow-int-http"]
 
         allow = [
@@ -122,7 +122,7 @@ firewall_rules = [
         project       = "robotshop-sharedntwk-dev"
         priority      = 1003
         direction     = "INGRESS"
-        source_ranges = ["10.50.0.0/24"]
+        source_ranges = ["172.22.22.0/24"]
         target_tags   = ["allow-int-https"]
 
         allow = [
