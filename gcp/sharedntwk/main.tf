@@ -62,7 +62,7 @@ module "vpn_route" {
 
   name                   = var.vpn_route_name
   dest_range             = var.vpn_route_dest_range
-  network                = module.vpc.vpc_network_id
+  network                = var.vpn_route_network
   description            = var.vpn_route_description
   priority               = var.vpn_route_priority
   project                = var.vpn_route_project
