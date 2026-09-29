@@ -151,3 +151,12 @@ firewall_rules = [
         ]
     }
 ]
+
+vpn_route_name                   = "rbts-vpn-route"
+vpn_route_dest_range             = "172.22.22.0/24"
+vpn_route_network                = "robotshop-sharedntwk-dev-vpc"
+vpn_route_description            = "Route for VPN traffic"
+vpn_route_priority               = "1000"
+vpn_route_project                = "robotshop-sharedntwk-dev"
+vpn_route_next_hop_instance      = "rbtsntwkdvpn"
+vpn_route_next_hop_instance_zone = "asia-south1-a"
