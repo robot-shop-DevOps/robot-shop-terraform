@@ -44,3 +44,8 @@ variable "next_hop_instance_zone" {
   type    = string
   default = null
 }
+
+variable "instance_tags" {
+  type    = list(string)
+  default = []
+}
