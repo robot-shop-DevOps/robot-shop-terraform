@@ -62,7 +62,7 @@ vpn_service_account_email   = "rbtsntwkdvpn@robotshop-sharedntwk-dev.iam.gservic
 vpn_boot_disk_image         = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2404-lts-amd64"
 vpn_can_ip_forward          = true
 vpn_assign_public_ip        = true
-vpn_network_tags            = ["allow-ssh"]
+vpn_network_tags            = ["allow-ssh", "nat-igw"]
 
 firewall_rules = [
     {
