@@ -69,3 +69,17 @@ module "vpn_route" {
   next_hop_instance      = var.vpn_route_next_hop_instance
   next_hop_instance_zone = var.vpn_route_next_hop_instance_zone
 }
+
+module "nat_igw_route" {
+  source = "../modules/compute_route"
+
+  name                   = var.nat_igw_route_name
+  dest_range             = var.nat_igw_route_dest_range
+  network                = var.nat_igw_route_network
+  description            = var.nat_igw_route_description
+  priority               = var.nat_igw_route_priority
+  project                = var.nat_igw_route_project
+  instance_tags          = var.nat_igw_route_instance_tags
+  next_hop_instance      = var.nat_igw_route_next_hop_instance
+  next_hop_instance_zone = var.nat_igw_route_next_hop_instance_zone
+}

@@ -160,3 +160,13 @@ vpn_route_priority               = "1000"
 vpn_route_project                = "robotshop-sharedntwk-dev"
 vpn_route_next_hop_instance      = "rbtsntwkdvpn"
 vpn_route_next_hop_instance_zone = "asia-south1-a"
+
+nat_igw_route_name                   = "rbts-nat-igw-route"
+nat_igw_route_dest_range             = "0.0.0.0/0"
+nat_igw_route_network                = "robotshop-sharedntwk-dev-vpc"
+nat_igw_route_description            = "Route for NAT IGW traffic"
+nat_igw_route_priority               = "100"
+nat_igw_route_project                = "robotshop-sharedntwk-dev"
+nat_igw_route_instance_tags          = ["nat-igw"]
+nat_igw_route_next_hop_instance      = "rbtsntwkdnat"
+nat_igw_route_next_hop_instance_zone = "asia-south1-a"

@@ -206,3 +206,45 @@ variable "vpn_route_next_hop_instance_zone" {
   type    = string
   default = null
 }
+
+variable "nat_igw_route_name" {
+  type = string
+}
+
+variable "nat_igw_route_dest_range" {
+  type = string
+}
+
+variable "nat_igw_route_network" {
+  type = string
+}
+
+variable "nat_igw_route_description" {
+  type    = string
+  default = ""
+}
+
+variable "nat_igw_route_priority" {
+  type = string
+  default = "1000"
+}
+
+variable "nat_igw_route_project" {
+  type = string
+  default = "1000"
+}
+
+variable "nat_igw_route_next_hop_instance" {
+  type    = string
+  default = null
+}
+
+variable "nat_igw_route_next_hop_instance_zone" {
+  type    = string
+  default = null
+}
+
+variable "nat_igw_route_instance_tags" {
+  type    = list(string)
+  default = []
+}
