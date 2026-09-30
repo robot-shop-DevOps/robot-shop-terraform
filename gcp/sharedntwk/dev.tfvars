@@ -149,6 +149,23 @@ firewall_rules = [
                 ports    = ["51820"]
             }
         ]
+    },
+    {
+        name          = "allow-nat-forwarding"
+        description   = "Allow NAT forwarding traffic"
+        network       = "robotshop-sharedntwk-dev-vpc"
+        project       = "robotshop-sharedntwk-dev"
+        priority      = 1003
+        direction     = "INGRESS"
+        source_ranges = ["10.0.0.0/24", "10.1.0.0/24"]
+
+        target_service_accounts = ["rbtsntwkdnat@robotshop-sharedntwk-dev.iam.gserviceaccount.com"]
+
+        allow = [
+            {
+                protocol = "all"
+            }
+        ]
     }
 ]
 
