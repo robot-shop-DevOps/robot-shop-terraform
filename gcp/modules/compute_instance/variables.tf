@@ -84,3 +84,8 @@ variable "network_tags" {
   type    = list(string)
   default = []
 }
+
+variable "labels" {
+  type    = map(string)
+  default = {}
+}

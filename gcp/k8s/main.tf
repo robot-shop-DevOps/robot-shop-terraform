@@ -10,4 +10,5 @@ module "k3s_controlplane" {
   service_account_email = var.k3s_controlplane_service_account_email
   boot_disk_image       = var.k3s_controlplane_boot_disk_image
   network_tags          = var.k3s_network_tags
+  labels               = var.k3s_labels
 }

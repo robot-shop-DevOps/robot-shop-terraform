@@ -34,3 +34,8 @@ variable "k3s_network_tags" {
   type    = list(string)
   default = []
 }
+
+variable "k3s_labels" {
+  type    = map(string)
+  default = {}
+}
