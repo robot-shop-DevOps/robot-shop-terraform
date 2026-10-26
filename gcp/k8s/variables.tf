@@ -39,3 +39,8 @@ variable "k3s_labels" {
   type    = map(string)
   default = {}
 }
+
+variable "k3s_metadata" {
+  type    = map(string)
+  default = {}
+}

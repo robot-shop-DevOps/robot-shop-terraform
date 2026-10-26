@@ -11,4 +11,5 @@ module "k3s_controlplane" {
   boot_disk_image       = var.k3s_controlplane_boot_disk_image
   network_tags          = var.k3s_network_tags
   labels               = var.k3s_labels
+  metadata             = var.k3s_metadata
 }
