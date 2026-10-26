@@ -65,9 +65,9 @@ variable "can_ip_forward" {
   default = false
 }
 
-variable "metadata_startup_script" {
-  type    = string
-  default = ""
+variable "metadata" {
+  type    = map(string)
+  default = {}
 }
 
 variable "assign_public_ip" {
