@@ -49,7 +49,7 @@ nat_service_account_email   = "rbtsntwkdnat@robotshop-sharedntwk-dev.iam.gservic
 nat_boot_disk_image         = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2404-lts-amd64"
 nat_can_ip_forward          = true
 nat_metadata                = { 
-                                startup-script = file("scripts/nat.sh") 
+                                "startup-script" = file("scripts/nat.sh") 
                             }
 nat_assign_public_ip        = true
 nat_network_tags            = ["allow-ssh"]
