@@ -1,5 +1,7 @@
 name: GCP Terraform Workflow
 
+run-name: ${{ github.ref_name == 'main' && format('Deploy {0} infra to {1} GCP', inputs.TERRAFORM_STACK, inputs.environment) || format('Plan {0} infra in {1}', inputs.TERRAFORM_STACK, inputs.environment) }}
+
 on:
   workflow_dispatch:
     inputs:

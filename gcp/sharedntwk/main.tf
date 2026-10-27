@@ -31,7 +31,7 @@ module "nat" {
   service_account_email   = var.nat_service_account_email
   boot_disk_image         = var.nat_boot_disk_image
   can_ip_forward          = var.nat_can_ip_forward
-  metadata_startup_script = file(var.nat_metadata_startup_script)
+  metadata                = var.nat_metadata
   assign_public_ip        = var.nat_assign_public_ip
   network_tags            = var.nat_network_tags
 }

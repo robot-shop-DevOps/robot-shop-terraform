@@ -73,9 +73,9 @@ variable "nat_can_ip_forward" {
   default = false
 }
 
-variable "nat_metadata_startup_script" {
-  type    = string
-  default = ""
+variable "nat_metadata" {
+  type    = map(string)
+  default = {}
 }
 
 variable "nat_assign_public_ip" {

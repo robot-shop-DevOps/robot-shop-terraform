@@ -9,9 +9,7 @@ resource "google_compute_instance" "compute_instance" {
     tags           = var.network_tags
     labels         = var.labels
     
-    metadata = {
-        startup-script = var.metadata_startup_script
-    }
+    metadata = var.metadata
 
     network_interface {
         subnetwork         = var.subnetwork
